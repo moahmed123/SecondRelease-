@@ -1,0 +1,118 @@
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Platform } from 'react-native';
+import { connect } from 'react-redux';
+import {
+  createStackNavigator,
+  createNavigationContainer,
+  StackActions,
+  NavigationActions,
+} from 'react-navigation';
+import StackViewStyleInterpolator from 'react-navigation-stack/src/views/StackView/StackViewStyleInterpolator';
+import OnboardingScreen from '../screens/OnboardingScreen';
+// import {
+//   LoginScreen,
+//   RegisterScreen,
+//   ProfileDrawerScreen,
+//   StartScreen,
+//   OnboardingScreen,
+//   ConnectContainer,
+// } from '../Screens/OnboardingScreen';
+//and this
+// import AppEventEmitter, { AppEvent } from '../utils/AppEvents';
+// import { isDoneOnboarding } from '../utils/helpers';
+// import { colors } from '../styles';
+
+class RootNavigator extends Component {
+  static propTypes = {
+    // isAuthed: PropTypes.bool.isRequired,
+    profileData: PropTypes.object.isRequired,
+    onboardingData: PropTypes.object,
+  };
+
+  constructor(props) {
+    super(props);
+
+    this.Navigator = createNavigationContainer(
+      createStackNavigator(
+        {
+          // Start: { screen: StartScreen },
+          Onboarding: { screen: OnboardingScreen },
+          // Login: { screen: LoginScreen },
+          // Register: { screen: RegisterScreen },
+          // Connect: { screen: ConnectContainer },
+          // Drawer: { screen: ProfileDrawerScreen, navigationOptions: { header: null } },
+        },
+        {
+          // initialRouteName: this.getInitialRoute(),
+          initialRouteName: 'Onboarding',
+          headerMode: 'none',
+          cardStyle: {
+            backgroundColor: 'white',
+            // backgroundColor: colors.background,
+          },
+          transitionConfig: () => ({
+            screenInterpolator: sceneProps => {
+              // Disable the transition animation when resetting to the main screen
+              if (sceneProps.index === 0 && sceneProps.scenes.length > 2) {
+                return null;
+              }
+
+              // Otherwise, use the usual animation
+              return Platform.OS === 'ios'
+                ? StackViewStyleInterpolator.forHorizontal(sceneProps)
+                : StackViewStyleInterpolator.forFadeFromBottomAndroid(sceneProps);
+            },
+          }),
+        }
+      )
+    );
+  }
+
+  componentDidMount() {
+    //check this
+    // this.logoutListener = AppEventEmitter.addListener(AppEvent.Logout, this.handleLogoutRedirect);
+  }
+
+  componentWillUnmount() {
+    // this.logoutListener.remove();
+  }
+
+  handleLogoutRedirect = () => {
+    //redirect user to Login screen whenever logged out, even due to 401 error
+    this.navigatorRef.dispatch(
+      StackActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({
+            routeName: 'Drawer',
+          }),
+        ],
+      })
+    );
+  };
+
+  getInitialRoute() {
+    //temp condition
+    // this.props.isAuthed
+    // ? isOldUser(this.props.profileData)
+    //     ? 'Drawer'
+    //     : 'Register'
+    // : 'Start';
+    return isDoneOnboarding(this.props.onboardingData) ? 'Drawer' : 'Start';
+  }
+
+  render() {
+    return <this.Navigator ref={nav => (this.navigatorRef = nav)} />;
+  }
+}
+
+function mapStateToProps({ authentication }) {
+  return {
+    // isAuthed: authentication.isAuthed,
+    // profileData: authentication.profileData,
+    // onboardingData: authentication.onboardingData,
+  };
+}
+
+export default connect(mapStateToProps)(RootNavigator);

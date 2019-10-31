@@ -1,0 +1,70 @@
+{
+  "name": "Shopertino",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "lint": "eslint src/.",
+    "fixlint": "eslint --fix src/.; exit 0",
+    "precommit": "npm run lint",
+    "prepush": "npm run lint",
+    "test": "jest"
+  },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/Oswald"
+    ]
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "lodash.isequal": "^4.5.0",
+    "react": "16.8.3",
+    "react-native": "0.59.9",
+    "react-native-button": "^2.4.0",
+    "react-native-extra-dimensions-android": "^1.2.5",
+    "react-native-firebase": "^5.5.5",
+    "react-native-gesture-handler": "^1.3.0",
+    "react-native-icon-badge": "^1.1.3",
+    "react-native-keyboard-aware-scroll-view": "^0.8.0",
+    "react-native-loading-spinner-overlay": "^1.0.1",
+    "react-native-modal": "^11.0.2",
+    "react-native-reanimated": "^1.1.0",
+    "react-native-search-box": "0.0.19",
+    "react-native-sideswipe": "^1.5.0",
+    "react-native-splash-screen": "^3.2.0",
+    "react-native-super-grid": "^3.0.4",
+    "react-native-swiper": "^1.5.14",
+    "react-native-uuid-generator": "^5.0.0",
+    "react-navigation": "^3.11.0",
+    "react-navigation-animated-switch": "^0.2.1",
+    "react-navigation-redux-helpers": "^3.0.2",
+    "react-redux": "^7.1.0",
+    "redux": "^4.0.1",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
+    "remote-redux-devtools": "^0.5.16"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/runtime": "^7.4.5",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.8.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-idiomatic": "^4.0.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.13.0",
+    "eslint-plugin-react-native": "^3.7.0",
+    "husky": "^0.14.3",
+    "jest": "^24.8.0",
+    "metro-react-native-babel-preset": "^0.54.1",
+    "prettier": "^1.18.2",
+    "react-test-renderer": "16.8.3"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}

@@ -1,0 +1,125 @@
+import PropTypes from 'prop-types';
+import React, { Fragment, PureComponent } from 'react';
+import { UIManager, StatusBar, AsyncStorage } from 'react-native';
+// import { MenuProvider } from 'react-native-popup-menu';
+import { connect } from 'react-redux';
+// import SplashScreen from 'react-native-splash-screen';
+import RootNavigator from '../navigators/RootNavigator';
+// import { PreSplash, Loader } from '../components';
+// import { getAuthedUserProfile } from '../api/users';
+// import { getAllGoal, getAllDietary, getAllAllergy, getAllEquipment } from '../api/onboarding';
+// import { getLoginToken, setApiRequestToken } from '../utils/helpers';
+// import { isAuthed, updateOnboardingData } from '../redux/modules/authentication';
+// import {
+//   setGoalsList,
+//   setDietariesList,
+//   setAllergiesList,
+//   setEquipmentsList,
+// } from '~/redux/modules/metaInfo';
+
+class AppContainer extends PureComponent {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    // isAuthed: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    authedUserId: PropTypes.number,
+  };
+
+  constructor(props) {
+    super(props);
+  }
+
+  state = {
+    appIsReady: false,
+    isConnected: true,
+  };
+
+  // async componentDidMount() {
+  //   const onboardingData = await AsyncStorage.getItem('onboardingData');
+
+  //   firebase.analytics().logEvent('test_event_demo', { id: 'sgfsfgsfg' });
+
+  //   if (!onboardingData) {
+  //     const data = {
+  //       goals: [],
+  //       dietaries: [],
+  //       allergies: [],
+  //       cooking_experience: 1,
+  //       isFinished: false,
+  //       hasSeenOnboarding: false,
+  //     };
+
+  //     this.props.dispatch(updateOnboardingData(data));
+  //     AsyncStorage.setItem('onboardingData', JSON.stringify(data));
+  //   } else {
+  //     this.props.dispatch(updateOnboardingData(JSON.parse(onboardingData)));
+  //   }
+
+  //   // Enable LayoutAnimation under Android
+  //   UIManager.setLayoutAnimationEnabledExperimental &&
+  //     UIManager.setLayoutAnimationEnabledExperimental(true);
+
+  //   this.loadAuthedData();
+  // }
+
+  // async loadAuthedData() {
+  //   try {
+  //     const loginToken = await getLoginToken();
+
+  //     if (loginToken) {
+  //       setApiRequestToken(loginToken);
+
+  //       const [profileData] = await Promise.all([getAuthedUserProfile()]);
+
+  //       this.props.dispatch(isAuthed(profileData.data));
+  //     }
+
+  //     const [goals, dietaries, allergies, equipments] = await Promise.all([
+  //       getAllGoal(),
+  //       getAllDietary(),
+  //       getAllAllergy(),
+  //       getAllEquipment(),
+  //     ]);
+
+  //     this.props.dispatch(setGoalsList(goals.data));
+  //     this.props.dispatch(setDietariesList(dietaries.data));
+  //     this.props.dispatch(setAllergiesList(allergies.data));
+  //     this.props.dispatch(setEquipmentsList(equipments.data));
+  //   } finally {
+  //     this.setState(
+  //       {
+  //         appIsReady: true,
+  //       },
+  //       () => {
+  //         SplashScreen.hide();
+  //       }
+  //     );
+  //   }
+  // }
+
+  render() {
+    // if (!this.state.appIsReady) {
+    //   return <PreSplash />;
+    // }
+
+    return (
+      <Fragment>
+        <StatusBar translucent={true} backgroundColor={'transparent'} barStyle={'dark-content'} />
+        <RootNavigator />
+      </Fragment>
+    );
+  }
+}
+
+function mapStateToProps({ authentication, loader }) {
+  return {
+    // isAuthed: authentication.isAuthed,
+    // authedUserId: authentication.profileData.id,
+    // profileData: authentication.profileData,
+    isLoading: loader.isLoading,
+  };
+}
+
+//<Loader isLoading={this.props.isLoading} />
+
+export default connect(mapStateToProps)(AppContainer);
