@@ -5,85 +5,146 @@ import Button from "react-native-button";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles";
 
+// Get Fun Action 
+import { connect } from 'react-redux';
+import * as actionCreatores from './../../action';
+import ExpandStores from '../../ExpandStores/ExpandStores';
+import RoutesApi from '../../ExpandStores/RoutesApi';
+import deviceStorage from "../../utils/deviceStorage";
+//To move To Other Redirect
+import { withNavigation } from "react-navigation"; 
+
 class Signup extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      progress: false,
-      loading: true,
-      fullname: "",
-      phone: "",
-      email: "",
-      password: ""
+    static propTypes = {
+        navigation: PropTypes.object.isRequired
     };
-  }
 
-  onRegister = () => {
-    const { fullname, phone, email, password } = this.state;
+    constructor(props) {
+        super(props);
 
-    this.props.onRegister({ fullname, phone, email, password });
-  };
+        this.state = {
+            progress: false,
+            loading: true,
+            firstname: "",
+            lastname: "",
+            phone: "",
+            email: "",
+            password: ""
+        };
+        this._MassageValidRegister = this._MassageValidRegister.bind(this);
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={[styles.title, styles.leftTitle]}>Create new account</Text>
-        <KeyboardAwareScrollView style={{ flex: 1, width: "100%" }}>
-          <View style={styles.InputContainer}>
-            <TextInput
-              style={styles.body}
-              placeholder='Full Name'
-              onChangeText={text => this.setState({ fullname: text })}
-              value={this.state.fullname}
-              underlineColorAndroid='transparent'/>
-          </View>
-          <View style={styles.InputContainer}>
-            <TextInput
-              style={styles.body}
-              placeholder='Phone Number'
-              onChangeText={text => this.setState({ phone: text })}
-              value={this.state.phone}
-              underlineColorAndroid='transparent'/>
-          </View>
-          <View style={styles.InputContainer}>
-            <TextInput
-              style={styles.body}
-              placeholder='E-mail Address'
-              onChangeText={text => this.setState({ email: text })}
-              value={this.state.email}
-              underlineColorAndroid='transparent'/>
-          </View>
-          <View style={[styles.InputContainer, { marginBottom: 50 }]}>
-            <TextInput
-              style={styles.body}
-              placeholder='Password'
-              secureTextEntry={true}
-              onChangeText={text => this.setState({ password: text })}
-              value={this.state.password}
-              underlineColorAndroid='transparent'/>
-          </View>
-          {this.state.progress ? (
-            <ActivityIndicator
-              size='large'
-              color={"#384c8d"}
-              animating={true}/>
-          ) : (
-            <Button
-              containerStyle={styles.facebookContainer}
-              style={styles.facebookText}
-              onPress={this.onRegister}>
-              Sign Up
-            </Button>
-          )}
-        </KeyboardAwareScrollView>
-      </View>
-    );
-  }
+    }
+
+    onRegister = () => {        
+        const { firstname, lastname, phone, email, password } = this.state;
+        // Create Url Store. 
+        const parametersurl = ExpandStores.UrlStore + RoutesApi.RegisterUser;
+        const tokon = deviceStorage.getUserData("Token"); //Get Token In deviceStorage.
+        tokon.then((token) => {
+            this.props.validateInput(parametersurl, token, firstname, lastname, email, password);
+            this.setState({progress: true});
+        });            
+        setTimeout(()=>{
+            this.setState({progress: false});
+        }, 2000)
+    };
+    _MassageValidRegister(){
+        const {RegisterData} = this.props;
+        if(RegisterData){
+            console.log(RegisterData.customer);
+
+            if(RegisterData.customer === undefined){
+                return <Text style={styles.MassageError}> {RegisterData} </Text>
+                
+            }else{
+                if(RegisterData.customer.email === undefined){
+                    return <Text style={styles.MassageError}> data doesn't correct </Text>
+                }else{
+                    setTimeout(()=>{
+                        this.props.navigation.navigate("Login");
+                    }, 2000);
+                    return <Text style={styles.MassageSuccess}> Done Register </Text>
+                    
+                }                
+            }          
+        }
+    }
+
+    render() {        
+        return (
+            <View style={styles.container}>
+                <Text style={[styles.title, styles.leftTitle]}>Create new account</Text>
+                <KeyboardAwareScrollView style={{ flex: 1, width: "100%" }}>
+                    <View style={styles.InputContainer}>
+                        <TextInput
+                            style={styles.body}
+                            placeholder='First Name'
+                            onChangeText={text => this.setState({ firstname: text })}
+                            value={this.state.firstname}
+                            underlineColorAndroid='transparent' />
+                    </View>
+                    <View style={styles.InputContainer}>
+                        <TextInput
+                            style={styles.body}
+                            placeholder='last Name'
+                            onChangeText={text => this.setState({ lastname: text })}
+                            value={this.state.lastname}
+                            underlineColorAndroid='transparent' />
+                    </View>
+                    {/* <View style={styles.InputContainer}>
+                        <TextInput
+                            style={styles.body}
+                            placeholder='Phone Number'
+                            onChangeText={text => this.setState({ phone: text })}
+                            value={this.state.phone}
+                            underlineColorAndroid='transparent' />
+                    </View> */}
+                    <View style={styles.InputContainer}>
+                        <TextInput
+                            style={styles.body}
+                            placeholder='E-mail Address'
+                            onChangeText={text => this.setState({ email: text })}
+                            value={this.state.email}
+                            underlineColorAndroid='transparent' />
+                    </View>
+                    <View style={[styles.InputContainer, { marginBottom: 50 }]}>
+                        <TextInput
+                            style={styles.body}
+                            placeholder='Password'
+                            secureTextEntry={true}
+                            onChangeText={text => this.setState({ password: text })}
+                            value={this.state.password}
+                            underlineColorAndroid='transparent' />
+                    </View>
+                    {this.state.progress ? (
+                        <ActivityIndicator
+                            size='large'
+                            color={"#384c8d"}
+                            animating={true} />
+                    ) : (
+                            <Button
+                                containerStyle={styles.facebookContainer}
+                                style={styles.facebookText}
+                                onPress={this.onRegister}                                
+                                >
+                                Sign Up
+                            </Button>
+                        )}
+                        {this._MassageValidRegister()}                                                                         
+                </KeyboardAwareScrollView>                
+            </View>
+        );
+    }
 }
 
 Signup.propTypes = {
-  onRegister: PropTypes.func
+    onRegister: PropTypes.func
 };
 
-export default Signup;
+
+function mapStateToProps(state) {
+    return {
+        RegisterData: state.ResultRegister
+    }
+}
+export default connect(mapStateToProps, actionCreatores)(withNavigation(Signup));

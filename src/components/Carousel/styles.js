@@ -8,7 +8,7 @@ const carouselHeightMultiplier = 1.52;
 const styles = StyleSheet.create({
   carouselProductViewContainer: {
     width: width,
-    height: carouselHeightMultiplier * width,
+    height: carouselHeightMultiplier * width - 60,
     justifyContent: "center",
     alignItems: "center",
     overflow: "visible",
@@ -19,13 +19,16 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 7,
-
-    elevation: 11
+    // elevation: 11,  
+    // marginHorizontal: 5,    
+    // backgroundColor: '#f7f7f7'
   },
   carouselProductViewImage: {
     width: width - 15,
-    height: carouselHeightMultiplier * width - 60,
-    borderRadius: 7
+    // height: carouselHeightMultiplier * width - 60,
+    height: carouselHeightMultiplier * width - 160,
+    borderRadius: 7,    
+    resizeMode: 'contain',   
   },
   carouselProductViewTitle: {
     textAlign: "center",

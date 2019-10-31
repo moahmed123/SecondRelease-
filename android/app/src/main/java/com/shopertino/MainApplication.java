@@ -1,8 +1,10 @@
-package com.shopertino;
+package com.expandcart.eshopeing;
 
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
+import com.avishayil.rnrestart.ReactNativeRestartPackage;
 import io.invertase.firebase.RNFirebasePackage;
 import com.swmansion.reanimated.ReanimatedPackage;
 import ca.jaysoo.extradimensions.ExtraDimensionsPackage;
@@ -34,6 +36,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactNativeLocalizationPackage(),
+            new ReactNativeRestartPackage(),
             new RNFirebasePackage(),
             new ReanimatedPackage(),
             new ExtraDimensionsPackage(),

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import { connect } from "react-redux";
 import UUIDGenerator from "react-native-uuid-generator";
 import { updatePricesByQty } from "../../utils/updatePricesByQty";
@@ -8,126 +8,94 @@ import ProductGrid from "../../components/ProductGrid/ProductGrid";
 import ProductDetailModal from "../../components//Modals/ProductDetailModal/ProductDetailModal";
 import styles from "./styles";
 import AppStyles from "../../AppStyles";
+// Call Action Function
+import * as actionCreatores from '../../action';
+//Connect Url 
+import ExpandStores from '../../ExpandStores/ExpandStores';
+import RoutesApi from '../../ExpandStores/RoutesApi';
+import deviceStorage from "../../utils/deviceStorage";
+import LoadingBar from '../../components/LoadingBar/LoadingBar'
 
 class CategoryProductGridScreen extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    title:
-      typeof navigation.state.params === "undefined" ||
-      typeof navigation.state.params.title === "undefined"
-        ? "Cartegory Grid"
-        : navigation.state.params.title,
-    headerTintColor: AppStyles.colorSet.mainThemeForegroundColor
-  });
+    static navigationOptions = ({ navigation }) => ({
+        title:
+            typeof navigation.state.params === "undefined" ||
+                typeof navigation.state.params.title === "undefined"
+                ? "Cartegory Grid"
+                : navigation.state.params.title,
+        headerTintColor: AppStyles.colorSet.mainThemeForegroundColor
+    });
+    constructor(props) {
+        super(props);
+        this.state = {
+            isProductDetailVisible: false,
+            product: {},
+            categoryProducts: []
+        };
+        this.categoryProducts = this.props.navigation.getParam("products");
+        this.categoryId = this.props.navigation.getParam("categoryId");
+    }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      isProductDetailVisible: false,
-      product: {},
-      categoryProducts: []
+    componentDidMount() {
+        if (this.categoryProducts) {
+            this.setState({ categoryProducts: this.categoryProducts });
+        }
+        else {
+            this.getCategoryProducts(this.categoryId);
+        }
+    }
+    getCategoryProducts = categoryId => {        
+        const parametersurl = ExpandStores.UrlStore + RoutesApi.CategoryProducts;        
+        const tokon = deviceStorage.getUserData("Token");//Get Token In deviceStorage.
+        
+        tokon.then((token) => {
+            this.props.GetCategoryProducts( parametersurl, token, categoryId, '', '', '')
+        })        
     };
-    this.categoryProducts = this.props.navigation.getParam("products");
-    this.categoryId = this.props.navigation.getParam("categoryId");
-  }
 
-  componentDidMount() {
-    if (this.categoryProducts) {
-      this.setState({ categoryProducts: this.categoryProducts });
+    // Return Data For Category And Product
+    _DataCategoryProducts(){
+        if(this.props.CategoryProductsData){
+            return(
+                <View>
+                    <ProductGrid
+                    products={this.props.CategoryProductsData.Products}
+                    onCardPress={this.onCardPress}
+                    itemContainerStyle={{ alignItems: "center" }}
+                    //extraData={extraData}
+                    />                     
+                </View>                
+                )
+        }else{
+            return <LoadingBar/>
+        }
     }
- else {
-      this.getCategoryProducts(this.categoryId);
+
+    render() {
+//        const { extraData } = this.props;
+
+        return (
+            <View style={styles.container}>
+                {this._DataCategoryProducts()}
+                {/* <ProductDetailModal
+                    item={this.state.product}
+                    visible={this.state.isProductDetailVisible}
+                    onFavouritePress={this.onFavouritePress}
+                    onAddToBag={this.onAddToBag}
+                    onCancelPress={() =>
+                        this.setState({
+                            isProductDetailVisible: !this.state.isProductDetailVisible
+                        })} 
+                /> */}
+            </View>
+        );
     }
-  }
-
-  getCategoryProducts = categoryId => {
-    const categoryProducts = this.props.allProducts.filter(product => {
-      return product.category === categoryId;
-    });
-
-    this.setState({ categoryProducts });
-  };
-
-  onCardPress = item => {
-    this.setState({
-      isProductDetailVisible: !this.state.isProductDetailVisible,
-      product: item
-    });
-  };
-
-  onFavouritePress = item => {
-    item.isFavourite = !item.isFavourite;
-    this.setState({ product: item });
-
-    this.props.dispatch({
-      type: "ADD_TO_WISHLIST",
-      data: item
-    });
-  };
-
-  onAddToBag = item => {
-    UUIDGenerator.getRandomUUID(uuid => {
-      const uniqueId = uuid;
-      const itemCopy = { ...item, shoppingBagId: uniqueId };
-      const product = {
-        id: uniqueId,
-        qty: 1,
-        totalPrice: Number(item.price)
-      };
-
-      updatePricesByQty(product, this.props.productPricesByQty, pricesByQty => {
-        this.props.dispatch({
-          type: "ADD_TO_SHOPPING_BAG",
-          data: itemCopy
-        });
-
-        this.props.dispatch({
-          type: "ADD_PRODUCT_PRICES_BY_QTY",
-          data: pricesByQty
-        });
-      });
-
-      this.setState({ isProductDetailVisible: false });
-    });
-  };
-
-  render() {
-    const { extraData } = this.props;
-
-    return (
-      <View style={styles.container}>
-        <ProductGrid
-          products={this.state.categoryProducts}
-          onCardPress={this.onCardPress}
-          itemContainerStyle={{ alignItems: "center" }}
-          extraData={extraData}/>
-        <ProductDetailModal
-          item={this.state.product}
-          visible={this.state.isProductDetailVisible}
-          onFavouritePress={this.onFavouritePress}
-          onAddToBag={this.onAddToBag}
-          onCancelPress={() =>
-            this.setState({
-              isProductDetailVisible: !this.state.isProductDetailVisible
-            })}/>
-      </View>
-    );
-  }
 }
 
-CategoryProductGridScreen.propTypes = {
-  title: PropTypes.string,
-  CategoryProductGridScreen: PropTypes.array,
-  navigation: PropTypes.object,
-  extraData: PropTypes.object,
-  allProducts: PropTypes.array,
-  productPricesByQty: PropTypes.array
-};
-
-const mapStateToProps = ({ products }) => {
-  return {
-    productPricesByQty: products.productPricesByQty,
-    allProducts: products.allProducts
-  };
-};
-
-export default connect(mapStateToProps)(CategoryProductGridScreen);
+function mapStateToProps(state) {
+    return {
+        CategoryProductsData: state.CategoryProducts
+    }
+}
+export default connect(mapStateToProps, actionCreatores)(CategoryProductGridScreen);
+// export default CategoryProductGridScreen;

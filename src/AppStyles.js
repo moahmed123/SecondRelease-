@@ -17,7 +17,7 @@ const colorSet = {
 };
 
 const imageSet = {
-  shopertinoLogo: require("../assets/images/shopertino-logo.png"),
+  shopertinoLogo: require("../assets/images/smart.png"),
   shoppingBag: require("../assets/images/shopping-bag.png"),
   quickSearch: require("../assets/images/quick-search.png"),
   wishlist: require("../assets/images/wishlist.png"),

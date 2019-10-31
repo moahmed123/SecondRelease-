@@ -13,15 +13,16 @@ export const RootNavigator = createAnimatedSwitchNavigator(
   {
     initialRouteName: "Auth",
     cardStyle: {
-      backgroundColor: AppStyles.colorSet.mainThemeBackgroundColor
+      backgroundColor: AppStyles.colorSet.mainThemeBackgroundColor      
     },
     transition: (
       <Transition.Together>
         <Transition.Out
-          type='slide-top'
+          // type='slide-top'
+          type='slide-bottom'          
           durationMs={400}
           interpolation='easeIn'/>
-        <Transition.In type='fade' durationMs={500} />
+        {/* <Transition.In type='fade' durationMs={500} /> */}
       </Transition.Together>
     )
   }

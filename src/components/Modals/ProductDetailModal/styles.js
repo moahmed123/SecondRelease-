@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
   viewContainer: {
     width: width,
     height: height * 0.95,
+    // height: height * 3.95,
     backgroundColor: AppStyles.colorSet.mainThemeBackgroundColor
   },
   swiperContainer: {
@@ -25,10 +26,13 @@ const styles = StyleSheet.create({
   },
   imageBackgroundContainer: {
     flex: 1.9,
-    backgroundColor: "#d9d7da"
+    // backgroundColor: "#d9d7da"
+    backgroundColor: '#fff'
   },
   imageBackground: {
-    flex: 1
+    flex: 1,
+    resizeMode: 'contain',
+    backgroundColor: '#fff'
   },
   activeDot: {
     backgroundColor: "white",
@@ -123,7 +127,8 @@ const styles = StyleSheet.create({
     color: AppStyles.colorSet.mainTextColor,
     paddingTop: 20,
     paddingLeft: 15,
-    fontSize: 17
+    fontSize: 17,
+    paddingHorizontal: 10
   },
   price: {
     fontFamily: AppStyles.fontFamily.regularFont,

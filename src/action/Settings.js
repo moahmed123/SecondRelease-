@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-export function GeneralSetting( urlStore, Token ){
+export function Settings( urlStore, Token ){
     return(dispatch) => {
         return axios.post(urlStore, {            
             token: Token    
         })
         .then((response) => {
-            dispatch(GeneralData(response.data));            
+            dispatch(SettingsData(response.data));            
             console.log(response.data)
         })
         .catch( (error) => {
@@ -15,9 +15,9 @@ export function GeneralSetting( urlStore, Token ){
     }
 }
 
-export function GeneralData(result){
+export function SettingsData(result){
     return{
-        type: 'GENERAL_DATA',
-        GeneralData: result
+        type: 'SETTING_DATA',
+        SettingsData: result
     }
 }

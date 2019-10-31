@@ -137,7 +137,8 @@ const styles = StyleSheet.create({
   // },
   footerContainer: {
     width: width,
-    height: height * 0.17,
+    height: height * 0.27,
+    // height: height * 0.3,
     backgroundColor: "white",
     alignSelf: "flex-end",
     borderTopColor: "#f2f2f3",
@@ -159,7 +160,7 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   titleCostSpace: {
-    flex: 5
+    flex: 4
   },
   totalCostContainer: {
     flex: 2,

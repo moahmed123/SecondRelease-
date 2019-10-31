@@ -7,9 +7,6 @@ import { connect } from "react-redux";
 import SplashScreen from "react-native-splash-screen";
 import RootNavigator from "../Navigators/RootNavigator";
 
-//Import Action 
-// import * as actionCreatores from './../action/index';
-// import {MakeRequest} from './../action/index';
 
 const AppContainer = createReduxContainer(RootNavigator);
 

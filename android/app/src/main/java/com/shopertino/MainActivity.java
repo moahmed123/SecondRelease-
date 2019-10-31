@@ -1,4 +1,4 @@
-package com.shopertino;
+package com.expandcart.eshopeing;
 
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;

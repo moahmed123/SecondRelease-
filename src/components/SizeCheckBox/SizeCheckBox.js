@@ -32,6 +32,6 @@ SizeCheckBox.propTypes = {
   size: PropTypes.string,
   index: PropTypes.number,
   onPress: PropTypes.func,
-  selectedIndex: PropTypes.number,
+  selectedIndex: PropTypes.string,
   containerStyle: PropTypes.any
 };

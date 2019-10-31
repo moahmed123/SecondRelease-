@@ -14,6 +14,8 @@ target 'Shopertino' do
 
   # Pods for RestaurantApp
 
+  pod 'ReactNativeLocalization', :path => '../node_modules/react-native-localization'
+
   target 'ShopertinoTests' do
     inherit! :search_paths
     # Pods for testing

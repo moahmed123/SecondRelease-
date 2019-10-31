@@ -50,6 +50,24 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: AppStyles.fontFamily.boldFont,
     color: AppStyles.colorSet.mainTextColor
+  },
+  MassageSuccess:{
+    textAlign: 'center',
+    color: '#fff',
+    width: '80%',
+    marginHorizontal: '10%',
+    paddingVertical: 15,
+    marginTop: 10,
+    backgroundColor: '#2ecc71'
+  },
+  MassageError:{
+    textAlign: 'center',
+    color: '#fff',
+    width: '80%',
+    marginHorizontal: '10%',
+    paddingVertical: 15,
+    marginTop: 10,
+    backgroundColor: '#cc0000'
   }
 });
 

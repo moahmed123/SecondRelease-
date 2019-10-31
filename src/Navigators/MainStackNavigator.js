@@ -10,44 +10,55 @@ import ShippingAddressScreen from "../screens/OrderProcedureScreen/ShippingAddre
 import ShippingMethodScreen from "../screens/OrderProcedureScreen/ShippingMethodScreen";
 import PaymentMethodScreen from "../screens/OrderProcedureScreen/PaymentMethodScreen";
 import AddACardScreen from "../screens/OrderProcedureScreen/AddACardScreen";
+
+import SplashScreen from "react-native-splash-screen";
 // import CheckoutScreen from "../screens/OrderProcedureScreen/CheckoutScreen";
 import DrawerStackNavigator from "./DrawerStackNavigator";
+
+// import CheckoutCart from '../components/CheckoutPage/CheckoutPage';
+import strings from './../ExpandStores/LocalizedStrings'
 import AppStyles from "../AppStyles";
 
 const MainStackNavigator = createStackNavigator(
-  {
-    Drawer: { screen: DrawerStackNavigator },
-    CategoryProductGrid: { screen: CategoryProductGridScreen },
-    Settings: { screen: SettingsScreen },
-    Contact: { screen: ContactUsScreen },
-    EditProfile: { screen: EditProfileScreen },
-    ShippingAddress: { screen: ShippingAddressScreen },
-    ShippingMethod: { screen: ShippingMethodScreen },
-    PaymentMethod: { screen: PaymentMethodScreen },
-    AddACard: { screen: AddACardScreen },
-    // Checkout: { screen: CheckoutScreen },
-    Bag: { screen: ShoppingBagScreen }
-  },
-  {
-    initialRouteName: "Drawer",
-    headerMode: "float",
-    cardStyle: {
-      backgroundColor: AppStyles.colorSet.mainThemeBackgroundColor
-    },
-    transitionConfig: () => ({
-      screenInterpolator: sceneProps => {
-        // Disable the transition animation when resetting to the main screen
-        if (sceneProps.index === 0 && sceneProps.scenes.length > 2) {
-          return null;
-        }
+    {
+        Drawer: { screen: DrawerStackNavigator },
+        CategoryProductGrid: { screen: CategoryProductGridScreen },
+        Settings: {
+            screen: SettingsScreen,
+            navigationOptions: ({ navigation }) => {
+                return { title: strings.CheckOutButtonText }
+            }
+        },
+        Contact: { screen: ContactUsScreen },
+        EditProfile: { screen: EditProfileScreen },
+        ShippingAddress: { screen: ShippingAddressScreen },
+        ShippingMethod: { screen: ShippingMethodScreen },
+        PaymentMethod: { screen: PaymentMethodScreen },
+        AddACard: { screen: AddACardScreen },
+        // Checkout: { screen: CheckoutCart },
+        Bag: { screen: ShoppingBagScreen },
 
-        // Otherwise, use the usual animation
-        return Platform.OS === "ios"
-          ? StackViewStyleInterpolator.forHorizontal(sceneProps)
-          : StackViewStyleInterpolator.forFadeFromBottomAndroid(sceneProps);
-      }
-    })
-  }
+    },
+    {
+        initialRouteName: "Drawer",
+        headerMode: "float",
+        cardStyle: {
+            backgroundColor: AppStyles.colorSet.mainThemeBackgroundColor
+        },
+        transitionConfig: () => ({
+            screenInterpolator: sceneProps => {
+                // Disable the transition animation when resetting to the main screen
+                if (sceneProps.index === 0 && sceneProps.scenes.length > 2) {
+                    return null;
+                }          
+                SplashScreen.hide();
+                // Otherwise, use the usual animation
+                return Platform.OS === "ios"
+                    ? StackViewStyleInterpolator.forHorizontal(sceneProps)
+                    : StackViewStyleInterpolator.forFadeFromBottomAndroid(sceneProps);
+            }
+        })
+    }
 );
 
 // getInitialRoute() {
@@ -56,9 +67,9 @@ const MainStackNavigator = createStackNavigator(
 
 // function mapStateToProps() {
 //   return {
-//     // isAuthed: authentication.isAuthed,
-//     // profileData: authentication.profileData,
-//     // onboardingData: authentication.onboardingData,
+//     isAuthed: authentication.isAuthed,
+//     profileData: authentication.profileData,
+//     onboardingData: authentication.onboardingData,
 //   };
 // }
 

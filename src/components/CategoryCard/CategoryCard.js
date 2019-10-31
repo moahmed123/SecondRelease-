@@ -9,7 +9,7 @@ export default class CategoryCard extends Component {
 
     return (
       <ImageBackground
-        source={{ uri: item.thumb }}
+        source={{ uri: (item.image)?item.image:item.thumb }}        
         style={[styles.categoryImageContainer, imageContainerStyle]}
         imageStyle={styles.categoryImage}
         resizeMode='cover'>

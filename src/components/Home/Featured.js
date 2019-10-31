@@ -7,7 +7,7 @@ import styles from "./styles";
 export default class Featured extends Component {
   renderItem = ({ item, index }) => (
     <ProductCard
-      onPress={() => this.props.onCardPress(item)}
+      // onPress={() => this.props.onCardPress(item)}
       key={index + ""}
       item={item}/>
   );

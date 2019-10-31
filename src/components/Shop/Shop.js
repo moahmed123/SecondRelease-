@@ -1,43 +1,72 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { FlatList } from "react-native";
+import { FlatList , Text} from "react-native";
 import CategoryCard from "../CategoryCard/CategoryCard";
 import styles from "./styles";
 
-export default class Shop extends Component {
-  onCategoryPress = item => {
-    this.props.navigation.navigate("CategoryProductGrid", {
-      title: item.name,
-      categoryId: item.id
-    });
-  };
+import * as actionCreatores from '../../action';
+import { connect } from "react-redux";
+//Connect Url 
+import ExpandStores from '../../ExpandStores/ExpandStores';
+import RoutesApi from '../../ExpandStores/RoutesApi';
+import deviceStorage from "../../utils/deviceStorage";
+import LoadingBar from '../../components/LoadingBar/LoadingBar';
 
-  renderItem = ({ item, index }) => (
-    <CategoryCard
-      onCategoryPress={() => this.onCategoryPress(item)}
-      imageContainerStyle={styles.categoryImageContainerStyle}
-      key={index}
-      item={item}/>
-  );
 
-  render() {
-    const { extraData, categories } = this.props;
+class Shop extends Component {
+    componentDidMount(){
+        const parametersurl = ExpandStores.UrlStore + RoutesApi.SelectedCategories;
+        const token = deviceStorage.getUserData("Token");//Get Token In deviceStorage.
+        token.then((Token)=>{
+            this.props.Categories(parametersurl, Token);
+        })        
+    }
+    onCategoryPress = item => {
+        this.props.CategoryProducts(null); //To Refresh products
+        this.props.navigation.navigate("CategoryProductGrid", {
+            title: item.name,
+            categoryId: item.category_id
+        });
+    };
 
-    return (
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={categories}
-        keyExtractor={(item, index) => index.toString()}
-        extraData={extraData}
-        renderItem={this.renderItem}
-        itemContainerStyle={{ alignItems: "center" }}
-        style={{ alignSelf: "center" }}/>
+    renderItem = ({ item, index }) => (
+        <CategoryCard
+            onCategoryPress={() => this.onCategoryPress(item)}
+            imageContainerStyle={styles.categoryImageContainerStyle}
+            key={index}
+            item={item} />
     );
-  }
+
+    render() {
+        const { extraData, CategoriesData } = this.props;
+        console.log(CategoriesData);
+        if(CategoriesData){
+            return(
+                <FlatList
+                showsVerticalScrollIndicator={false}
+                data={CategoriesData.Categories}
+                keyExtractor={(item, index) => index.toString()}
+                extraData={extraData}
+                renderItem={this.renderItem}
+                itemContainerStyle={{ alignItems: "center" }}
+                style={{ alignSelf: "center" }} />
+            )
+        }else{
+            return <LoadingBar/>
+        }
+        
+    }
 }
 
-Shop.propTypes = {
-  navigation: PropTypes.object,
-  extraData: PropTypes.object,
-  categories: PropTypes.array
-};
+// Shop.propTypes = {
+//     navigation: PropTypes.object,
+//     extraData: PropTypes.object,
+//     categories: PropTypes.array
+// };
+
+function mapStateToProps(state) {
+    return {
+        CategoriesData: state.CategoriesResult
+    }
+}
+export default connect(mapStateToProps, actionCreatores)(Shop);

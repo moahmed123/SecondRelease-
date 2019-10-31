@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     paddingRight: 35
   },
   text: {
-    fontSize: 20
+    fontSize: 14
   },
   label: {
     fontSize: 14,
