@@ -10,9 +10,9 @@ const getUserData = async () => {
   try {
     const userData = await AsyncStorage.getItem(LOGGED_IN_USER_DATA);
 
-    return userData ? JSON.parse(userData) : { data: {} };
+    return userData ? JSON.parse(userData) : false;
   }
- catch (err) {
+  catch (err) {
     return err;
   }
 };
@@ -25,8 +25,7 @@ const getUserData = async () => {
 const setUserData = async data => {
   try {
     await AsyncStorage.setItem(LOGGED_IN_USER_DATA, JSON.stringify(data));
-  }
- catch (err) {
+  } catch (err) {
     console.log(err);
   }
 };

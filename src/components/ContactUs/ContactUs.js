@@ -10,12 +10,13 @@ import styles from "./styles";
 
 import * as actionCreatores from '../../action';
 import { connect } from "react-redux";
-//Connect Url 
+//Connect Url
 import ExpandStores from '../../ExpandStores/ExpandStores';
 import RoutesApi from '../../ExpandStores/RoutesApi';
 import deviceStorage from "../../utils/deviceStorage";
 // import { withNavigation } from "react-navigation";
 import LoadingBar from '../../components/LoadingBar/LoadingBar';
+import Strings from '../../ExpandStores/LocalizedStrings';
 
 class ContactUs extends Component {
     static navigationOptions = {
@@ -26,35 +27,35 @@ class ContactUs extends Component {
         this.state = {};
     }
     componentDidMount(){
-        let parametersurl = ExpandStores.UrlStore + RoutesApi.ContactInfo;        
-        let token = deviceStorage.getUserData("Token"); //Get Token In deviceStorage.                                        
+        let parametersurl = ExpandStores.UrlStore + RoutesApi.ContactInfo;
+        let token = deviceStorage.getUserData("Token"); //Get Token In deviceStorage.
+
         token.then((Token)=>{
             this.props.ContactInfo(parametersurl, Token);
-        })        
+        });
     }
 
     render() {
         const {ContactInfoData} = this.props;
-        if(ContactInfoData){        
-            console.log(ContactInfoData)
+        if(ContactInfoData){
             return (
                 <View style={styles.container}>
                     <ScrollView style={styles.body}>
                         <View style={styles.labelView}>
-                            <Text style={styles.label}>CONTACT</Text>
+                            <Text style={styles.label}>{Strings.ContactUsScreenTitle}</Text>
                         </View>
                         <View style={styles.contentView}>
                             <View style={styles.addressView}>
-                                <Text style={styles.text}>Our address</Text>
-                                <Text style={styles.textcaption}>                                    
+                                <Text style={styles.text}>{Strings.OurAddress}</Text>
+                                <Text style={styles.textcaption}>
                                     {ContactInfoData.StoreAddress}
                                 </Text>
                             </View>
                             <View style={styles.itemView}>
-                                <Text style={styles.text}>E-mail us</Text>                                
-                                    <Text style={styles.placeholderText}>                                    
+                                <Text style={styles.text}>{Strings.emailUs}</Text>
+                                    <Text style={styles.placeholderText}>
                                         {ContactInfoData.StoreEmail}
-                                    </Text>                                
+                                    </Text>
                             </View>
                         </View>
                         {/* <View style={styles.captionView}>
@@ -82,6 +83,7 @@ class ContactUs extends Component {
 function mapStateToProps(state) {
     return {
         ContactInfoData: state.ContactInfoData
-    }
+    };
 }
+
 export default connect(mapStateToProps, actionCreatores)(ContactUs);

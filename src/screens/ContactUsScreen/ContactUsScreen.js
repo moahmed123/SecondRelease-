@@ -4,13 +4,14 @@ import React, { Component } from "react";
 import ContactUs from "../../components/ContactUs/ContactUs";
 // import styles from "./styles";
 import AppStyles from "../../AppStyles";
+import Strings from '../../ExpandStores/LocalizedStrings';
 
 export default class ContactUsScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
     title:
       typeof navigation.state.params === "undefined" ||
       typeof navigation.state.params.title === "undefined"
-        ? "Contact Us"
+        ? Strings.contactus
         : navigation.state.params.title,
     headerTintColor: AppStyles.colorSet.mainThemeForegroundColor
   });
