@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React, { Component} from "react";
-import { ScrollView, I18nManager, AsyncStorage } from 'react-native'
+import { ScrollView, I18nManager, AsyncStorage, RefreshControl } from 'react-native'
 import { connect } from "react-redux";
 // import Home from "../../components/Home/Home";
 
@@ -13,9 +13,9 @@ import Banner from "./../../components/Home/Banner";
 import Slider from "./../../components/Home/Slider";
 // import strings from '../../ExpandStores/LocalizedStrings';
 
-// import ExpandStores from '../../ExpandStores/ExpandStores';
-// import RoutesApi from '../../ExpandStores/RoutesApi';
-// import deviceStorage from "../../utils/deviceStorage";
+import ExpandStores from '../../ExpandStores/ExpandStores';
+import RoutesApi from '../../ExpandStores/RoutesApi';
+import deviceStorage from "../../utils/deviceStorage";
 
 import { StackActions, NavigationActions } from 'react-navigation';
 
@@ -25,6 +25,9 @@ class HomeScreen extends Component {
     //   };
     constructor(props) {
         super(props);
+        this.state={
+            loading: false
+        }
     }
     componentDidMount(){
         // let urlHomeStore = ExpandStores.UrlStore + RoutesApi.Home;
@@ -101,9 +104,32 @@ class HomeScreen extends Component {
             })
         }
     }
+    _refresh(){        
+        this.setState({loading: true});
+        // Refresh Data
+        let urlHomeStore = ExpandStores.UrlStore + RoutesApi.Home;
+        let Token = deviceStorage.getUserData("Token");          
+        // Url To Home Store        
+        Token.then((token)=>{
+            // Call Home Page Api.
+            this.props.HomeStore(urlHomeStore, token).then(()=>{
+                this.setState({loading: false});
+            })                          
+        }) 
+    }
     render() {
         return (
-            <ScrollView style={{marginBottom: 15}}>
+            <ScrollView 
+                style={{marginBottom: 15}}
+                refreshControl={
+                    <RefreshControl
+                      refreshing = {this.state.loading}
+                      onRefresh  = {() => this._refresh()}
+                      tintColor  = "#dceafd"
+                      titleColor = "#dceafd"
+                    />
+                  }
+            >
                 {this._renderHomePage()}
             </ScrollView>    
         );

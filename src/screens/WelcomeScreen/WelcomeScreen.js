@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import Button from "react-native-button";
-import { View, Image, Text, AsyncStorage, I18nManager } from "react-native";
+import { View, Image, Text, AsyncStorage, I18nManager, BackHandler } from "react-native";
 import AppStyles from "../../AppStyles";
 import styles from "./styles";
 import SplashScreen from "react-native-splash-screen";
@@ -21,6 +21,27 @@ class WelcomeScreen extends React.Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired
     };
+    _didFocusSubscription;
+    _willBlurSubscription;
+  
+    constructor(props) {
+      super(props);
+      this._didFocusSubscription = props.navigation.addListener(
+        'didFocus',
+        payload =>
+          BackHandler.addEventListener(
+            'hardwareBackPress',
+            this.onBackButtonPressAndroid
+          )
+      );
+    }
+     
+    onBackButtonPressAndroid = () => {
+        console.log(this.props.navigation.state.routeName)
+        this.props.navigation.navigate("Home");
+        return true;
+    };
+  
     componentDidMount() {             
         // Create Url Store. 
         const parametersurl = ExpandStores.UrlStore + RoutesApi.login;
@@ -35,6 +56,16 @@ class WelcomeScreen extends React.Component {
             strings.setLanguage('ar');
         }  
          
+
+        // Back Button Android 
+        this._willBlurSubscription = this.props.navigation.addListener(
+            'willBlur',
+            payload =>
+              BackHandler.removeEventListener(
+                'hardwareBackPress',
+                this.onBackButtonPressAndroid
+              )
+        );
         //Tester 
         // console.log("UserLogin --------------");  
         // // AsyncStorage.setItem('userlogin', 'true');                      
@@ -71,6 +102,10 @@ class WelcomeScreen extends React.Component {
         // }).catch((error)=>{
         //     console.log(error);
         // })                        
+    }
+    componentWillUnmount() {
+        this._didFocusSubscription && this._didFocusSubscription.remove();
+        this._willBlurSubscription && this._willBlurSubscription.remove();
     }
     render() {
         const {tokenStore} = this.props;

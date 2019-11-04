@@ -28,7 +28,7 @@ const AuthStackNavigator = createStackNavigator(
         // Checkout: { screen: CheckoutCart }        
     },
     {
-        initialRouteName: "Onboarding",// deviceStorage.getUserData("Token").then((token) => {console.log( token)});
+        initialRouteName: "Welcome",// deviceStorage.getUserData("Token").then((token) => {console.log( token)});
         headerMode: "float",
         headerBackTitleVisible: false,
         cardStyle: {

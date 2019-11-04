@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
   productCardImage: {
     width: "100%",
     height: "100%",
-    borderRadius: 6
+    borderRadius: 6,
+    resizeMode: 'contain'
   },
   productCardPrice: {
     textAlign: "left",
