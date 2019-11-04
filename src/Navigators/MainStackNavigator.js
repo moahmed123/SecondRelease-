@@ -1,6 +1,7 @@
 import { Platform } from "react-native";
 import { createStackNavigator } from "react-navigation";
 import StackViewStyleInterpolator from "react-navigation-stack/src/views/StackView/StackViewStyleInterpolator";
+
 import ShoppingBagScreen from "../screens/ShoppingBagScreen/ShoppingBagScreen";
 import CategoryProductGridScreen from "../screens/Shop/CategoryProductGridScreen";
 import SettingsScreen from "../screens/SettingsScreen/SettingsScreen";
@@ -16,49 +17,65 @@ import SplashScreen from "react-native-splash-screen";
 import DrawerStackNavigator from "./DrawerStackNavigator";
 
 // import CheckoutCart from '../components/CheckoutPage/CheckoutPage';
-import strings from './../ExpandStores/LocalizedStrings'
+import strings from "./../ExpandStores/LocalizedStrings";
 import AppStyles from "../AppStyles";
 
 const MainStackNavigator = createStackNavigator(
-    {
-        Drawer: { screen: DrawerStackNavigator },
-        CategoryProductGrid: { screen: CategoryProductGridScreen },
-        Settings: {
-            screen: SettingsScreen,
-            navigationOptions: ({ navigation }) => {
-                return { title: strings.CheckOutButtonText }
-            }
-        },
-        Contact: { screen: ContactUsScreen },
-        EditProfile: { screen: EditProfileScreen },
-        ShippingAddress: { screen: ShippingAddressScreen },
-        ShippingMethod: { screen: ShippingMethodScreen },
-        PaymentMethod: { screen: PaymentMethodScreen },
-        AddACard: { screen: AddACardScreen },
-        // Checkout: { screen: CheckoutCart },
-        Bag: { screen: ShoppingBagScreen },
-
+  {
+    Drawer: { screen: DrawerStackNavigator },
+    CategoryProductGrid: { screen: CategoryProductGridScreen },
+    Settings: {
+      screen: SettingsScreen,
+      navigationOptions: {
+        title: strings.CheckOutButtonText
+      }
     },
-    {
-        initialRouteName: "Drawer",
-        headerMode: "float",
-        cardStyle: {
-            backgroundColor: AppStyles.colorSet.mainThemeBackgroundColor
-        },
-        transitionConfig: () => ({
-            screenInterpolator: sceneProps => {
-                // Disable the transition animation when resetting to the main screen
-                if (sceneProps.index === 0 && sceneProps.scenes.length > 2) {
-                    return null;
-                }          
-                SplashScreen.hide();
-                // Otherwise, use the usual animation
-                return Platform.OS === "ios"
-                    ? StackViewStyleInterpolator.forHorizontal(sceneProps)
-                    : StackViewStyleInterpolator.forFadeFromBottomAndroid(sceneProps);
-            }
-        })
-    }
+    Contact: {
+      screen: ContactUsScreen,
+      navigationOptions: {
+        title: strings.ContactUsScreenTitle
+      }
+    },
+    EditProfile: {
+      screen: EditProfileScreen,
+      navigationOptions: {
+        title: strings.editProfile
+      }
+    },
+    ShippingAddress: {
+      screen: ShippingAddressScreen,
+      navigationOptions: {
+        title: strings.ShippingAddress
+      }
+    },
+    ShippingMethod: { screen: ShippingMethodScreen },
+    PaymentMethod: { screen: PaymentMethodScreen },
+    AddACard: { screen: AddACardScreen },
+    // Checkout: { screen: CheckoutCart },
+    Bag: { screen: ShoppingBagScreen }
+  },
+  {
+    initialRouteName: "Drawer",
+    headerMode: "float",
+    cardStyle: {
+      backgroundColor: AppStyles.colorSet.mainThemeBackgroundColor
+    },
+    transitionConfig: () => ({
+      screenInterpolator: sceneProps => {
+        // Disable the transition animation when resetting to the main screen
+        if (sceneProps.index === 0 && sceneProps.scenes.length > 2) {
+          return null;
+        }
+
+        SplashScreen.hide();
+
+        // Otherwise, use the usual animation
+        return Platform.OS === "ios"
+          ? StackViewStyleInterpolator.forHorizontal(sceneProps)
+          : StackViewStyleInterpolator.forFadeFromBottomAndroid(sceneProps);
+      }
+    })
+  }
 );
 
 // getInitialRoute() {

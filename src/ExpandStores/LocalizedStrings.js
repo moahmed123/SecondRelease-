@@ -5,7 +5,7 @@ let strings = new LocalizedStrings({
         connectionError:"there is no internet connection",
         tryAgain:"Try Again",
         home:"Home",
-        BAG:'BAG',        
+        BAG:'BAG',
         myAccount:"My Account",
         wishList:"Wish List",
         Cart:"Cart",
@@ -107,9 +107,10 @@ let strings = new LocalizedStrings({
         Cancel:"Cancel",
         NoProduct: 'No Product For This Name',
         SearchForProducts:"Search For Products",
-        WelcomeText: 'Shop & get updates on new products and sales with our mobile app.'
-
-
+        WelcomeText: 'Shop & get updates on new products and sales with our mobile app.',
+        ShippingAddress: 'Shipping Address',
+        OurAddress: 'Our Address',
+      emailUs: 'Email Us',
     },
     ar: {
         connectionError:"لا يوجد اتصال بالانترنت",
@@ -211,9 +212,10 @@ let strings = new LocalizedStrings({
         products: 'منتجات',
         Total:"مجموع",
         emptyOptions:"خيارات فارغة (مطلوب) *",
-        WelcomeText: 'تسوق واحصل على تحديثات حول المنتجات الجديدة والمبيعات من خلال تطبيق الجوّال.'
-
-
+        WelcomeText: 'تسوق واحصل على تحديثات حول المنتجات الجديدة والمبيعات من خلال تطبيق الجوّال.',
+        ShippingAddress: 'عنوان التوصيل',
+        OurAddress: 'العنوان',
+      emailUs: 'راسلنا',
     }
 });
 

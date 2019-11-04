@@ -14,10 +14,10 @@ import RoutesApi from '../../ExpandStores/RoutesApi';
 import deviceStorage from "../../utils/deviceStorage";
 
 class ShoppingBagButton extends React.Component {
-    componentDidMount(){       
-        const urlGetCart = ExpandStores.UrlStore + RoutesApi.CartProducts;        
+    componentDidMount(){
+        const urlGetCart = ExpandStores.UrlStore + RoutesApi.CartProducts;
         const token = deviceStorage.getUserData("Token"); //Get Token In deviceStorage.
-        token.then((token) => {                                        
+        token.then((token) => {
             // Refresh Data Products Cart
             this.props.CartProducts(urlGetCart, token);
         })
@@ -25,9 +25,9 @@ class ShoppingBagButton extends React.Component {
     render() {
         const { bagItems } = this.props;
         if(bagItems){
-            console.log(bagItems.products.length)
+          console.log(bagItems.products && bagItems.products.length);
         }
-        return (            
+        return (
             <View style={styles.container}>
                 <TouchableOpacity onPress={this.props.onPress}>
                     <IconBadge
@@ -35,14 +35,14 @@ class ShoppingBagButton extends React.Component {
                             source={AppStyles.iconSet.shoppingBagFilled}
                             style={styles.headerButtonImage} />}
                         BadgeElement={
-                            (bagItems)? <Text style={{ color: "#FFFFFF" }}>{bagItems.products.length}</Text> : null                             
+                            (bagItems)? <Text style={{ color: "#FFFFFF" }}>{bagItems.products.length}</Text> : null
                             // bagItems.products.length >= 0 && ( <Text style={{ color: "#FFFFFF" }}>2</Text> )
                         }
                         IconBadgeStyle={{
                             width: 20,
                             height: 20,
                             // backgroundColor: bagItems.products.length >= 0 ? "#fb898e" : "transparent"
-                            backgroundColor: bagItems ?  "#fb898e": "transparent" 
+                            backgroundColor: bagItems ?  "#fb898e": "transparent"
                         }} />
                 </TouchableOpacity>
             </View>
