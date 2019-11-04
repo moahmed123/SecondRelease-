@@ -3,7 +3,7 @@ import { Text, View } from "react-native";
 import PropTypes from "prop-types";
 import styles from "./styles";
 // import AppStyles from "../../AppStyles";
-
+import Strings from '../../ExpandStores/LocalizedStrings';
 // const { width } = Dimensions.get("window");
 
 export default class CheckOutDetails extends Component {
@@ -44,19 +44,19 @@ export default class CheckOutDetails extends Component {
     };
 
     let payment = {
-      title: "Payment",
+      title: Strings.components.orderProcedure.checkOutDetials.paymentTitle,
       value: paymentValue[selectedPaymentMethod.key]
         ? paymentValue[selectedPaymentMethod.key]
         : `Visa ${selectedPaymentMethod.cardEndingNumber}`
     };
 
     let shipping = {
-      title: "Shipping",
+      title: Strings.components.orderProcedure.checkOutDetials.shippingTitle,
       value: shippingMethod
     };
 
     let total = {
-      title: "Total",
+      title: Strings.components.orderProcedure.checkOutDetials.totalTitle,
       value: `$${totalPrice}`
     };
 

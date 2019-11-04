@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { View, Text } from "react-native";
 import ProductGrid from "../ProductGrid/ProductGrid";
 import FooterButton from "../FooterButton/FooterButton";
+import Strings from '../../ExpandStores/LocalizedStrings';
 import styles from "./styles";
 
 export default class BestSellers extends Component {
@@ -14,7 +15,7 @@ export default class BestSellers extends Component {
   };
 
   renderlistFooter = () => (
-    <FooterButton onPress={() => this.onFooterPress()} title={"Browse all"} />
+    <FooterButton onPress={() => this.onFooterPress()} title={Strings.components.home.bestSellers.browseAll} />
   );
 
   render() {

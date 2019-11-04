@@ -8,7 +8,7 @@ import ProcedureImage from "../../components/OrderProcedure/ProcedureImage";
 import PaymentOptions from "../../components/OrderProcedure/PaymentOptions";
 import HeaderButton from "../../components/OrderProcedure/HeaderButton";
 import AppStyles from "../../AppStyles";
-
+import Strings from '../../ExpandStores/LocalizedStrings';
 // import styles from "./styles";
 
 class PaymentMethodScreen extends Component {
@@ -25,7 +25,7 @@ class PaymentMethodScreen extends Component {
           navigation.goBack();
         }}
         buttonContainerStyle={{ marginLeft: 10 }}
-        title={"Cancel"}/>
+        title={Strings.screens.orderProcedureScreen.paymentMethodScreen.headerBackButton}/>
     ),
     headerRight: (
       <HeaderButton
@@ -33,7 +33,7 @@ class PaymentMethodScreen extends Component {
           navigation.replace("Checkout");
         }}
         buttonContainerStyle={{ marginRight: 10 }}
-        title={"Next"}/>
+        title={Strings.screens.orderProcedureScreen.paymentMethodScreen.headerRightButton}/>
     )
   });
 
@@ -47,7 +47,7 @@ class PaymentMethodScreen extends Component {
   render() {
     return (
       <KeyboardAwareScrollView>
-        <Header title={"Payment Method"} />
+        <Header title={Strings.screens.orderProcedureScreen.paymentMethodScreen.title} />
         <ProcedureImage source={AppStyles.imageSet.creditCard} />
         <PaymentOptions
           navigation={this.props.navigation}

@@ -11,6 +11,7 @@ import * as actionCreatores from '../../action';
 import ExpandStores from '../../ExpandStores/ExpandStores';
 import RoutesApi from '../../ExpandStores/RoutesApi';
 import deviceStorage from "../../utils/deviceStorage";
+import Strings from '../../ExpandStores/LocalizedStrings';
 
 class ShoppingBagCard extends Component {
     constructor(props) {
@@ -69,7 +70,7 @@ class ShoppingBagCard extends Component {
         console.log(quantity);
         token.then((Token)=>{
             const urladdCart = ExpandStores.UrlStore + RoutesApi.AddToCart;
-            const urlGetCart = ExpandStores.UrlStore + RoutesApi.CartProducts; 
+            const urlGetCart = ExpandStores.UrlStore + RoutesApi.CartProducts;
             console.log(Token);
             // Updata Unmber of itemQty
             this.props.AddToCart( urladdCart, Token, productId, quantity, null).then(()=>{
@@ -87,16 +88,16 @@ class ShoppingBagCard extends Component {
         const { item } = this.props;
 
         Alert.alert(
-            "Remove Item",
-            "Are you sure you want to remove this item from the cart?",
+            Strings.components.shoppingBagCard.removeItemTitle,
+          Strings.components.shoppingBagCard.removeItemMessage,
             [
                 {
-                    text: "Remove",
+                    text: Strings.components.shoppingBagCard.removeButtonText,
                     onPress: () => this.removeFromShoppingBag(item),
                     style: "destructive"
                 },
                 {
-                    text: "Cancel",
+                    text: Strings.components.shoppingBagCard.cancelButtonText,
                     onPress: () => this.increaseQty()
                 }
             ],
@@ -106,9 +107,9 @@ class ShoppingBagCard extends Component {
 
     removeFromShoppingBag = item => {
         const parametersurl = ExpandStores.UrlStore + RoutesApi.RemoveFromCart;
-        const urlGetCart = ExpandStores.UrlStore + RoutesApi.CartProducts;        
+        const urlGetCart = ExpandStores.UrlStore + RoutesApi.CartProducts;
         const token = deviceStorage.getUserData("Token"); //Get Token In deviceStorage.
-        token.then((token) => {                            
+        token.then((token) => {
             this.props.RemoveProductCart(parametersurl, token, item.key).then(()=>{
                 this.props.showLoading(true);
             });
@@ -116,7 +117,7 @@ class ShoppingBagCard extends Component {
             this.props.CartProducts(urlGetCart, token).then(()=>{
                 this.props.showLoading(false);
             })
-        });                
+        });
     };
 
     render() {

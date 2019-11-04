@@ -6,6 +6,7 @@ import ProcedureImage from "../../components/OrderProcedure/ProcedureImage";
 import ShippingDetails from "../../components/OrderProcedure/ShippingDetails";
 import HeaderButton from "../../components/OrderProcedure/HeaderButton";
 import AppStyles from "../../AppStyles";
+import Strings from '../../ExpandStores/LocalizedStrings';
 
 // import styles from "./styles";
 
@@ -23,7 +24,7 @@ export default class ShippingMethodScreen extends Component {
           navigation.replace("PaymentMethod");
         }}
         buttonContainerStyle={{ marginRight: 10 }}
-        title={"Done"}/>
+        title={Strings.screens.orderProcedureScreen.shippingMethodScreen.headerRightButton}/>
     )
   });
 
@@ -37,9 +38,9 @@ export default class ShippingMethodScreen extends Component {
   render() {
     return (
       <View>
-        <Header title={"Shipping"} />
+        <Header title={Strings.screens.orderProcedureScreen.shippingMethodScreen.title} />
         <ProcedureImage source={AppStyles.imageSet.box} />
-        <ShippingDetails isShippinngMethod={true} title={"Shipping Method"} />
+        <ShippingDetails isShippinngMethod={true} title={Strings.screens.orderProcedureScreen.shippingMethodScreen.detailsTitle} />
       </View>
     );
   }

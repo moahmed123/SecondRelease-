@@ -7,6 +7,7 @@ import FooterButton from "../FooterButton/FooterButton";
 import styles from "./styles";
 import AppStyles from "../../AppStyles";
 import { StackActions, NavigationActions } from 'react-navigation';
+import Strings from '../../ExpandStores/LocalizedStrings';
 
 export default class Profile extends Component {
     constructor(props) {
@@ -30,17 +31,17 @@ export default class Profile extends Component {
                 <View style={styles.profileItemContainer}>
                     <ScrollView>
                         <ProfileItem
-                            title={"Account Details"}
-                            onPress={() => this.onItemPress("EditProfile", "Edit Profile")}
+                            title={Strings.components.profile.accountDetailsTitle}
+                            onPress={() => this.onItemPress("EditProfile", Strings.components.profile.accountDetialsNavigateScreenTitle)}
                             itemIconStyle={{ tintColor: "#6b7be8" }}
                             iconSource={AppStyles.iconSet.accountDetail} />
                         <ProfileItem
-                            title={"WishList"}
+                            title={Strings.components.profile.wishListTitle}
                             itemIconStyle={{ tintColor: "#df9292" }}
                             onPress={() => this.onItemPress("Wishlist")}
                             iconSource={AppStyles.iconSet.wishlistFilled} />
                         <ProfileItem
-                            title={"Order History"}
+                            title={Strings.components.profile.historyTitle}
                             onPress={() => this.onItemPress("Order")}
                             itemIconStyle={{ tintColor: "#baa3f3" }}
                             iconSource={AppStyles.iconSet.orderDrawer} />
@@ -50,8 +51,8 @@ export default class Profile extends Component {
                             itemIconStyle={{ tintColor: "#a6a4b1" }}
                             iconSource={AppStyles.iconSet.settings} /> */}
                         <ProfileItem
-                            title={"Contact Us"}
-                            onPress={() => this.onItemPress("Contact", "Contact Us")}
+                            title={Strings.components.profile.contactUsTitle}
+                            onPress={() => this.onItemPress("Contact", Strings.components.profile.contactUsTitle)}
                             itemIconStyle={{ tintColor: "#9ee19f" }}
                             iconSource={AppStyles.iconSet.contactUs} />
                     </ScrollView>
@@ -62,7 +63,7 @@ export default class Profile extends Component {
                         title={"Logout"}
                         onPress={() => {
                             AsyncStorage.setItem('userlogin', 'Logout');
-                                //Restart App                                        
+                                //Restart App
                                 const resetAction = StackActions.reset({
                                 index: 0,
                                 actions: [NavigationActions.navigate({ routeName: 'Drawer' })],

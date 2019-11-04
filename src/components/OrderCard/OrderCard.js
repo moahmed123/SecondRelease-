@@ -7,6 +7,7 @@ import {
     ImageBackground,
     Image
 } from "react-native";
+import Strings from '../../ExpandStores/LocalizedStrings';
 import styles from "./styles";
 
 export default class OrderCard extends Component {
@@ -45,14 +46,14 @@ export default class OrderCard extends Component {
     renderCardFooter = order => (
         <View style={styles.footerContainer}>
             <View style={styles.totalPriceContainer}>
-                <Text style={styles.totalPrice}>{`Total: $${this.getTotalPrice(
-                    order.shopertino_products
-                )}`}</Text>
+                <Text style={styles.totalPrice}>
+                  {Strings.formatString(Strings.components.orderCard.totalPrice, this.getTotalPrice(order.shopertino_products))}
+                </Text>
             </View>
             <TouchableOpacity
                 onPress={() => this.props.onReOrder(order)}
                 style={styles.actionContainer}>
-                <Text style={styles.action}>REORDER</Text>
+                <Text style={styles.action}>{Strings.components.orderCard.reorder}</Text>
             </TouchableOpacity>
             <View style={styles.blankContainer} />
         </View>
@@ -87,7 +88,7 @@ export default class OrderCard extends Component {
                             this.renderCardFooter(order)}
                     </View>
                 ))} */}
-                <View style={styles.productContainer}>                    
+                <View style={styles.productContainer}>
                     <View style={styles.productDescriptionContainer}>
                         <Text style={styles.productDescription}>{order.name}</Text>
                     </View>
@@ -99,8 +100,8 @@ export default class OrderCard extends Component {
                     </View>
                     <View style={styles.productDescriptionContainer}>
                         <Text style={styles.productDescription}>{order.total}</Text>
-                    </View>                    
-                    
+                    </View>
+
                 </View>
             </View>
         );

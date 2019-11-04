@@ -42,17 +42,17 @@ class ContactUs extends Component {
                 <View style={styles.container}>
                     <ScrollView style={styles.body}>
                         <View style={styles.labelView}>
-                            <Text style={styles.label}>{Strings.ContactUsScreenTitle}</Text>
+                            <Text style={styles.label}>{Strings.components.contactUs.title}</Text>
                         </View>
                         <View style={styles.contentView}>
                             <View style={styles.addressView}>
-                                <Text style={styles.text}>{Strings.OurAddress}</Text>
+                                <Text style={styles.text}>{Strings.components.contactUs.OurAddress}</Text>
                                 <Text style={styles.textcaption}>
                                     {ContactInfoData.StoreAddress}
                                 </Text>
                             </View>
                             <View style={styles.itemView}>
-                                <Text style={styles.text}>{Strings.emailUs}</Text>
+                                <Text style={styles.text}>{Strings.components.contactUs.emailUs}</Text>
                                     <Text style={styles.placeholderText}>
                                         {ContactInfoData.StoreEmail}
                                     </Text>
