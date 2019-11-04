@@ -68,7 +68,7 @@ class Login extends React.Component {
                         });
                         this.props.navigation.dispatch(resetAction);                  
                         // this.setState({loginProgress:false})                        
-                    }, 500);                    
+                    }, 50);                    
                     return <Text style={styles.MassageSuccess}> Done Login </Text>
                     // Need Do: Save Data For User
                 }                
@@ -84,7 +84,7 @@ class Login extends React.Component {
                     <TextInput
                         style={styles.body}
                         placeholder='someone@example.com'
-                        onChangeText={text => this.setState({ email: text })}
+                        onChangeText={text => this.setState({ email: text.replace(/ /g,"") })}
                         value={this.state.email}
                         underlineColorAndroid='transparent' />
                 </View>

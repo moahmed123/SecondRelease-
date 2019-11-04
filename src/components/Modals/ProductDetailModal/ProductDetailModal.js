@@ -614,12 +614,10 @@ class ProductDetailModal extends React.Component {
                         <View style={styles.viewContainer}>
                             {this._ProductData()}
                         </View>
-                        {/* New Option */}
-                        <View style={[styles.productOptionsSection, {marginHorizontal: 15}]}>
-                            {/* {optionsGroup1} */}
-                            {/* {(ProductsData)? getOptionGroup(ProductsData.product_options): null} */}
+                        {/* New Option */}                        
+                        <View style={[styles.productOptionsSection, {marginHorizontal: 15}]}>                            
                             {this._getOptionGroup()}
-                            <View style={styles.borderLine} />
+                            {/* <View style={styles.borderLine} /> */}
                         </View>                   
                         {/* End New Option */} 
                         {

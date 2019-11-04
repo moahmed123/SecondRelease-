@@ -62,7 +62,7 @@ class Signup extends React.Component {
                 }else{
                     setTimeout(()=>{
                         this.props.navigation.navigate("Login");
-                    }, 2000);
+                    }, 500);
                     return <Text style={styles.MassageSuccess}> Done Register </Text>
                     
                 }                
@@ -103,7 +103,7 @@ class Signup extends React.Component {
                         <TextInput
                             style={styles.body}
                             placeholder='E-mail Address'
-                            onChangeText={text => this.setState({ email: text })}
+                            onChangeText={text => this.setState({ email: text.replace(/ /g,"") })}
                             value={this.state.email}
                             underlineColorAndroid='transparent' />
                     </View>

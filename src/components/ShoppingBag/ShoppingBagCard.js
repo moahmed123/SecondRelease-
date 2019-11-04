@@ -69,7 +69,24 @@ class ShoppingBagCard extends Component {
             optionvalue = " { \" " + option[0].product_option_id + " \" : \" "+ option[0].product_option_value_id + " \" }";
             optionvalue = JSON.parse(optionvalue);            
         }else if(option.length > 1){
-
+            // If Two Option
+            if(option.length == 2){
+                optionvalue = 
+                "{ \"" +option[0].product_option_id + "\" : \"" +  option[0].product_option_value_id + "\""                                
+                + "," + "\""+
+                option[1].product_option_id + "\" : \"" +  option[1].product_option_value_id + "\""
+                + "}";  
+                optionvalue = JSON.parse(optionvalue);            
+            }else if(option.length == 3){
+                optionvalue = 
+                "{ \"" +option[0].product_option_id + "\" : \"" +  option[0].product_option_value_id + "\""                                
+                + "," + "\""+
+                option[1].product_option_id + "\" : \"" +  option[1].product_option_value_id + "\""
+                + "," + "\""+
+                option[2].product_option_id + "\" : \"" +  option[2].product_option_value_id + "\""
+                + "}";  
+                optionvalue = JSON.parse(optionvalue);            
+            }
         }     
         
         token.then((Token)=>{
