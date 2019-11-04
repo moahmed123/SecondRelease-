@@ -82,6 +82,7 @@ class ProductDetailModal extends React.Component {
             return <LoadingBar />
         } else {
             return (
+                
                 <View style={styles.viewContainer}>
 
                     {
@@ -96,8 +97,14 @@ class ProductDetailModal extends React.Component {
                                         key={index + ""}
                                         style={styles.imageBackgroundContainer}>
                                         <Image
+                                            style={styles.productCardImage} 
+                                            defaultSource = {require("./../../../../assets/ReloadImage.png")}
+                                        />
+                                        <Image
                                             style={styles.imageBackground}
-                                            source={{ uri: image.url }} />
+                                            source={{ uri: image.url }} 
+                                            // defaultSource = {require("./../../../assets/ReloadImage.png")}
+                                            />
                                         {
                                             this.state.DoneCart ?
                                                 <Text style={{
@@ -128,7 +135,9 @@ class ProductDetailModal extends React.Component {
                                 <View style={styles.imageBackgroundContainer}>
                                 <Image
                                     style={styles.imageBackground}
-                                    source={{ uri: ProductsData.Product.image }} />
+                                    source={{ uri: ProductsData.Product.image }}
+                                  //  defaultSource = {require("../../../assets/images/ReloadImage.png")}
+                                     />
                                 </View>
                             </Swiper>
                             
@@ -239,10 +248,11 @@ class ProductDetailModal extends React.Component {
                                                 DoneCart: true
                                             });
                                             // Refresh Data Products Cart
-                                            this.props.CartProducts(urlGetCart, token);
-                                            setTimeout(() => {
-                                                this.setState({ DoneCart: false });
-                                            }, 2000);
+                                            this.props.CartProducts(urlGetCart, token).then(()=>{
+                                                setTimeout(() => {
+                                                    this.setState({ DoneCart: false });
+                                                }, 2000);
+                                            })                                            
                                         }
                                     } else {
                                         // Add To Cart Fun
@@ -255,10 +265,11 @@ class ProductDetailModal extends React.Component {
                                             DoneCart: true
                                         });
                                         // Refresh Data Products Cart
-                                        this.props.CartProducts(urlGetCart, token);
-                                        setTimeout(() => {
-                                            this.setState({ DoneCart: false });
-                                        }, 2000);
+                                        this.props.CartProducts(urlGetCart, token).then(()=>{
+                                            setTimeout(() => {
+                                                this.setState({ DoneCart: false });
+                                            }, 2000);
+                                        });
 
                                     }
 
@@ -271,26 +282,15 @@ class ProductDetailModal extends React.Component {
                                 fontFamily: AppStyles.fontFamily.regularFont
                             }}
                             title={strings.addtobag} />
-                        <View style={styles.buttonSpace} />
-                        {/* <FooterButton
-                            footerContainerStyle={styles.payContainerStyle}
-                            footerTitleStyle={{
-                                color: AppStyles.colorSet.mainThemeForegroundColor,
-                                fontFamily: AppStyles.fontFamily.regularFont
-                            }}
-                            iconSource={Platform.OS === "ios"
-                                ? AppStyles.iconSet.appleFilled
-                                : AppStyles.imageSet.googlePayColored}
-                            iconStyle={styles.footerIconStyle}
-                            title={"Pay"} /> */}
-                    </View>                    
+                        <View style={styles.buttonSpace} />                        
+                    </View>
                 </View>
             )
         }
     }
 
     render() {
-        const { visible, onCancelPress, item, onAddToBag } = this.props;
+        const { visible, onCancelPress, ProductsData } = this.props;        
         return (
             <Modal
                 isVisible={visible}
@@ -304,15 +304,89 @@ class ProductDetailModal extends React.Component {
                 style={styles.modalStyle}
                 backdropOpacity={0.5}
                 deviceWidth={deviceWidth}
-                deviceHeight={deviceHeight}>                    
-                <View style={styles.transparentContainer}>
-                    <StatusBar
-                        backgroundColor='rgba(0,0,0,0.5)'
-                        barStyle='dark-content' />
-                    <View style={styles.viewContainer}>
-                        {this._ProductData()}
+                deviceHeight={deviceHeight}
+                // scrollOffset={1200}
+                propagateSwipe={true}>
+                <ScrollView>
+                {/* style={styles.transparentContainer} */}
+                    <View style={{backgroundColor:'#fff'}}>                                    
+                        <StatusBar
+                            backgroundColor='rgba(0,0,0,0.5)'
+                            barStyle='dark-content' />
+                            {/* style={styles.viewContainer} */}
+                        <View style={styles.viewContainer}>
+                            {this._ProductData()}
+                        </View>
+                        <Text>cccc</Text>                                    
+                        <Text>cccc</Text>  
+                        {
+                            (ProductsData)?
+                            <View style={styles.footerContainer}>
+                        <FooterButton
+                            onPress={() => {
+                                //onAddToBag(item);
+                                const parametersurl = ExpandStores.UrlStore + RoutesApi.AddToCart;
+                                const token = deviceStorage.getUserData("Token"); //Get Token In deviceStorage.
+                                const urlGetCart = ExpandStores.UrlStore + RoutesApi.CartProducts;// Link Get Products Cart
+                                const productId = ProductsData.Product.product_id;
+
+                                token.then((token) => {
+                                    if (ProductsData.Product.product_options.length > 0) {
+                                        const requiredOption = ProductsData.Product.product_options[0].required;
+                                        if (requiredOption == 1 && !this.state.option_Data) {
+                                            Alert.alert(strings.emptyOptions)
+                                        }else{
+                                            console.log(this.state.option_Data);
+                                            let Option_Data = this.state.option_Data;
+                                            let quantity = 1;
+                                            
+
+                                            console.log(Option_Data);
+                                            this.props.AddToCart(parametersurl, token, productId, quantity, Option_Data);
+                                            this.setState({
+                                                DoneCart: true
+                                            });
+                                            // Refresh Data Products Cart
+                                            this.props.CartProducts(urlGetCart, token).then(()=>{
+                                                setTimeout(() => {
+                                                    this.setState({ DoneCart: false });
+                                                }, 2000);
+                                            })                                            
+                                        }
+                                    } else {
+                                        // Add To Cart Fun
+                                        console.log(this.state.option_Data);
+                                        let Option_Data = this.state.option_Data;
+                                        let quantity = 1;
+                                        // console.log(this.state.option_Data);
+                                        this.props.AddToCart(parametersurl, token, productId, quantity, new Object({"2222":"8732"}));
+                                        this.setState({
+                                            DoneCart: true
+                                        });
+                                        // Refresh Data Products Cart
+                                        this.props.CartProducts(urlGetCart, token).then(()=>{
+                                            setTimeout(() => {
+                                                this.setState({ DoneCart: false });
+                                            }, 2000);
+                                        });
+
+                                    }
+
+                                });
+
+                            }}
+                            footerContainerStyle={styles.addToBagContainerStyle}
+                            footerTitleStyle={{
+                                color: "white",
+                                fontFamily: AppStyles.fontFamily.regularFont
+                            }}
+                            title={strings.addtobag} />
+                        <View style={styles.buttonSpace} />                        
                     </View>
-                </View>                
+                            :null
+                        }                      
+                    </View>   
+                </ScrollView>                
             </Modal>
         );
     }

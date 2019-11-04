@@ -66,18 +66,26 @@ class ShoppingBagCard extends Component {
         const productId = this.props.item.product_id;
         const quantity = this.state.itemQty - 1;
         const option = this.props.item.option;
+        const removeUrl = ExpandStores.UrlStore + RoutesApi.RemoveFromCart;
         console.log(token);
         console.log(quantity);
         token.then((Token)=>{
             const urladdCart = ExpandStores.UrlStore + RoutesApi.AddToCart;
             const urlGetCart = ExpandStores.UrlStore + RoutesApi.CartProducts;
             console.log(Token);
-            // Updata Unmber of itemQty
-            this.props.AddToCart( urladdCart, Token, productId, quantity, null).then(()=>{
+            console.log(this.props.item.key);
+            //Remove Product And Add Again.
+            this.props.RemoveProductCart(removeUrl, Token, this.props.item.key).then(()=>{
                 this.props.showLoading(true);
+                // Updata Unmber of itemQty
+                this.props.AddToCart( urladdCart, Token, productId, quantity, null);
             });
+            // Updata Unmber of itemQty
+            // this.props.AddToCart( urladdCart, Token, productId, quantity, null).then(()=>{
+            //     this.props.showLoading(true);
+            // });
             // Refresh Data Products Cart
-            this.props.CartProducts(urlGetCart, token).then(()=>{
+            this.props.CartProducts(urlGetCart, Token).then(()=>{
                 this.props.showLoading(false);
             });
         })

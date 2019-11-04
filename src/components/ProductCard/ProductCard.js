@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { View, TouchableOpacity, Text, Image } from "react-native";
 import styles from "./styles";
 
-import ProductDetailModal from "../../components//Modals/ProductDetailModal/ProductDetailModal";
+import ProductDetailModal from "../../components/Modals/ProductDetailModal/ProductDetailModal";
 import * as actionCreatores from '../../action';
 import { connect } from "react-redux";
 //Connect Url 
@@ -37,12 +37,24 @@ class ProductCard extends Component {
                         });                        
                     }}
                     style={[styles.productCardConainer, cardConainerStyle]}>
-                    <View style={styles.productCardImageConainer}>                                        
+                    <View style={styles.productCardImageConainer}>
+                            {/* <Image
+                                style={styles.productCardImage} 
+                                defaultSource = {require("./../../../assets/ReloadImage.png")}
+                            /> */}
                         {
-                            (item.thumb)?
-                            <Image style={styles.productCardImage} source={{ uri: item.thumb }} />
+                            (item.thumb)?                            
+                            <Image 
+                                style={styles.productCardImage} 
+                                source={{ uri: item.thumb }}                                                              
+                            />
                             :
-                            <Image style={styles.productCardImage} source={{ uri: item.image }} />
+                            <Image 
+                                style={styles.productCardImage} 
+                                source={
+                                    (item.image)?{ uri: item.image } : require("./../../../assets/ReloadImage.png")
+                                }
+                            />
                         }                    
                     </View>
                     {

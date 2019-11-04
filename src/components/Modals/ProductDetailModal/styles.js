@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
   },
   activeDot: {
     backgroundColor: "white",
+    backgroundColor: "#54a0ff",
     width: 8,
     height: 8,
     borderRadius: 4,
