@@ -47,46 +47,55 @@ class ShoppingBagCard extends Component {
                     prevState.itemQty === 0 ? prevState.itemQty : prevState.itemQty - 1
             }),
             () => {
-                // this.setObjForProps();
+                this.setObjForProps();
                 this.state.itemQty === 0 && this.onItemEqualsZero();
             }
         );
     };
 
-    setObjForProps = () => {
-        // const obj = {
-        //     id: this.props.item.shoppingBagId,
-        //     qty: this.state.itemQty,
-        //     totalPrice: this.props.item.price * this.state.itemQty
-        // };
-        // this.props.onQtyChange(obj);
+    setObjForProps = () => {        
         console.log(this.props.item);
         const token = deviceStorage.getUserData("Token");
         const productId = this.props.item.product_id;
-        const quantity = this.state.itemQty - 1;
+        const quantity = this.state.itemQty;
         const option = this.props.item.option;
         const removeUrl = ExpandStores.UrlStore + RoutesApi.RemoveFromCart;
-        console.log(token);
+        var optionvalue = '';
+        // Option When Change Quantity
+        console.log("quantity");
         console.log(quantity);
+        console.log(option.length)
+        if(option.length == 1){
+            optionvalue = " { \" " + option[0].product_option_id + " \" : \" "+ option[0].product_option_value_id + " \" }";
+            optionvalue = JSON.parse(optionvalue);            
+        }else if(option.length > 1){
+
+        }     
+        
         token.then((Token)=>{
             const urladdCart = ExpandStores.UrlStore + RoutesApi.AddToCart;
             const urlGetCart = ExpandStores.UrlStore + RoutesApi.CartProducts; 
-            console.log(Token);
-            console.log(this.props.item.key);
+            
             //Remove Product And Add Again.
-            this.props.RemoveProductCart(removeUrl, Token, this.props.item.key).then(()=>{
-                this.props.showLoading(true);
-                // Updata Unmber of itemQty
-                this.props.AddToCart( urladdCart, Token, productId, quantity, null);
-            });
-            // Updata Unmber of itemQty
-            // this.props.AddToCart( urladdCart, Token, productId, quantity, null).then(()=>{
-            //     this.props.showLoading(true);
+            this.props.showLoading(true);
+            // this.props.RemoveProductCart(removeUrl, Token, this.props.item.key).then(()=>{                
+            //     // Updata Unmber of itemQty
+            //     this.props.AddToCart( urladdCart, Token, productId, quantity, optionvalue);                
             // });
+            this.props.RemoveProductCart(removeUrl, Token, this.props.item.key).then(()=>{
+                this.props.AddToCart( urladdCart, Token, productId, quantity, optionvalue).then(()=>{
+                    this.props.CartProducts(urlGetCart, Token).then(()=>{
+                        this.props.showLoading(false);                
+                    });
+                })   
+            })
+            console.log(optionvalue);
+            // Updata Unmber of itemQty
+            // this.props.AddToCart( urladdCart, Token, productId, quantity, optionvalue);
             // Refresh Data Products Cart
-            this.props.CartProducts(urlGetCart, Token).then(()=>{
-                this.props.showLoading(false);
-            });
+            // this.props.CartProducts(urlGetCart, Token).then(()=>{
+            //     this.props.showLoading(false);                
+            // });
         })
 
     };
@@ -117,13 +126,17 @@ class ShoppingBagCard extends Component {
         const urlGetCart = ExpandStores.UrlStore + RoutesApi.CartProducts;        
         const token = deviceStorage.getUserData("Token"); //Get Token In deviceStorage.
         token.then((token) => {                            
-            this.props.RemoveProductCart(parametersurl, token, item.key).then(()=>{
-                this.props.showLoading(true);
+            this.props.showLoading(true);
+            this.props.RemoveProductCart(parametersurl, token, item.key).then(()=>{                
+                // Refresh Data Products Cart
+                this.props.CartProducts(urlGetCart, token).then(()=>{
+                    this.props.showLoading(false);
+                })
             });
-            // Refresh Data Products Cart
-            this.props.CartProducts(urlGetCart, token).then(()=>{
-                this.props.showLoading(false);
-            })
+            // // Refresh Data Products Cart
+            // this.props.CartProducts(urlGetCart, token).then(()=>{
+            //     this.props.showLoading(false);
+            // })
         });                
     };
 
