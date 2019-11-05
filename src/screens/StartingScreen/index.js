@@ -24,7 +24,7 @@ export default props => {
   if(firstLaunch === null){
       return (
         <View style={Styles.container}>
-          <ActivityIndicator/>
+          <ActivityIndicator color = "#ddd"/>
         </View>
       );
     }

@@ -1,8 +1,7 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { View, Text } from "react-native";
-import ColorCheckBox from "../ColorCheckBox/ColorCheckBox";
-import SizeCheckBox from "../SizeCheckBox/SizeCheckBox";
+import strings from '../../ExpandStores/LocalizedStrings'
 import styles from "./styles";
 
 export default class CardContent extends Component {
@@ -39,27 +38,38 @@ export default class CardContent extends Component {
                     <Text style={styles.title}>{item.name}</Text>
                 </View>
                 <View style={styles.optionContainer}>
-                    <View style={styles.colorOptionContainer}>
-                        {/* <View style={styles.colorOptionTitleContainer}>
-                            <Text style={styles.color}>{"Color"}</Text>
-                        </View> */}
-                        <View style={styles.checkBoxContainer}>
-                            {/* {item.colors &&
-                item.colors.map((color, index) => (
-                  <ColorCheckBox
-                    containerStyle={[
-                      styles.checkBox,
-                      { borderColor: "#f2f2f3", borderWidth: 1.5 }
-                    ]}
-                    key={index + ""}
-                    color={color}
-                    selectedIndex={this.state.selectedColorIndex}
-                    onPress={() => this.onColorSelected(index)}
-                    index={index}/>
-                ))} */}
-                        </View>
+                    {
+                        (item.option)?
+                            item.option.map((data, key) => {
+                                return(
+                                    <View style={styles.colorOptionContainer} key = {key}>
+                                        <View style={styles.colorOptionTitleContainer}>
+                                            <Text style={styles.color}>{data.name}</Text>
+                                        </View>
+                                        <View style={styles.checkBoxContainer}>
+                                            <Text style={styles.color}>{data.value}</Text>                       
+                                        </View>
+                                    </View>
+                                )
+                            })                            
+                        :null
+                    }
+                    <View style={styles.colorOptionContainer}>                        
+                        {(item.stock)?
+                            <View style={styles.checkBoxContainer}>
+                                <Text style={[styles.color, {color: '#27ae60', marginHorizontal: 5, fontSize: 16}]}>
+                                    {strings.CartItemInStockLabel}                                                                
+                                </Text>
+                            </View>
+                            :
+                            <View style={styles.checkBoxContainer}>
+                                <Text style={[styles.color, {color: '#cc0000', marginHorizontal: 5, fontSize: 16}]}>
+                                     {strings.CartItemNotInStockLabel}
+                                </Text>
+                            </View>
+                        }
                     </View>
-                    <View style={styles.sizeOptionContainer}>
+                    {/* <View style={styles.sizeOptionContainer}>
                         {/* <View style={styles.colorOptionTitleContainer}>
                             <Text style={styles.size}>{"Size"}</Text>
                         </View> */}
@@ -75,7 +85,7 @@ export default class CardContent extends Component {
                     index={index}/>
                 ))}
             </View> */}
-                    </View>
+                    {/* </View> */}
                 </View>
                 <View style={styles.priceContainer}>
                     <Text style={styles.price}>{price}</Text>

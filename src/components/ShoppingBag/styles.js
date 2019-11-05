@@ -18,12 +18,13 @@ const styles = StyleSheet.create({
     marginVertical: 5
   },
   imageContainer: {
-    flex: 2
+    flex: 2.4
   },
   cardImage: {
-    width: "100%",
+    // width: "100%",
     height: "100%",
-    borderRadius: 8
+    borderRadius: 8,
+    resizeMode: 'contain'
   },
   contentContainer: {
     flex: 3.2

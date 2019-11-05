@@ -66,9 +66,10 @@ class Login extends React.Component {
                         index: 0,
                         actions: [NavigationActions.navigate({ routeName: 'Drawer' })],
                         });
-                        this.props.navigation.dispatch(resetAction);
-                        // this.setState({loginProgress:false})
-                    }, 500);
+
+                        this.props.navigation.dispatch(resetAction);                  
+                        // this.setState({loginProgress:false})                        
+                    }, 50);
                     return <Text style={styles.MassageSuccess}> Done Login </Text>
                     // Need Do: Save Data For User
                 }
@@ -83,8 +84,9 @@ class Login extends React.Component {
                 <View style={styles.InputContainer}>
                     <TextInput
                         style={styles.body}
+
                         placeholder={Strings.components.login.emailPlaceHolder}
-                        onChangeText={text => this.setState({ email: text })}
+                        onChangeText={text => this.setState({ email: text.replace(/ /g,"") })}
                         value={this.state.email}
                         underlineColorAndroid='transparent' />
                 </View>
