@@ -9,6 +9,7 @@ import {
 import ExpandStores from '../../ExpandStores/ExpandStores';
 import RoutesApi from '../../ExpandStores/RoutesApi';
 import deviceStorage from "../../utils/deviceStorage";
+import Strings from '../../ExpandStores/LocalizedStrings';
 
 class TestWebView extends Component {
     constructor(props) {
@@ -36,7 +37,7 @@ class TestWebView extends Component {
 
 export default class App extends Component {
     static navigationOptions = {
-        title: 'Checkout ',
+        title: Strings.components.profile.contactUsTitle,
       };
     constructor(props) {
         super(props)
@@ -44,7 +45,7 @@ export default class App extends Component {
             isLoaded: false,
             url: '',
         }
-    }    
+    }
     componentDidMount(){
         const parametersurl = ExpandStores.CheckOutLink;
         const tokon = deviceStorage.getUserData("Token"); //Get Token In deviceStorage.
@@ -64,7 +65,7 @@ export default class App extends Component {
         }
         return (
             <View style={styles.container}>
-                <View style={{ height: 0, width: 0 }}>                    
+                <View style={{ height: 0, width: 0 }}>
                     <WebView
                         source={{ uri: this.state.url }}
                         onLoad={() => {

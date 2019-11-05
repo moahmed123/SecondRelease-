@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import styles from "./styles";
 import AppStyles from "../../AppStyles";
-
+import Strings from '../../ExpandStores/LocalizedStrings';
 // const { width } = Dimensions.get("window");
 
 class PaymentOptions extends Component {
@@ -81,7 +81,7 @@ class PaymentOptions extends Component {
               style={styles.addCardIcon}/>
           </View>
           <View style={styles.addNewCardTitleContainer}>
-            <Text style={styles.addNewCardTitle}>{"Add New Card..."}</Text>
+            <Text style={styles.addNewCardTitle}>{Strings.components.orderProcedure.paymentOptions.addNewCard}</Text>
           </View>
         </TouchableOpacity>
       </View>

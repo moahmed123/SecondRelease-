@@ -9,6 +9,7 @@ import Featured from "./Featured";
 import BestSellers from "./BestSellers";
 import { updatePricesByQty } from "../../utils/updatePricesByQty";
 import ProductDetailModal from "../Modals/ProductDetailModal/ProductDetailModal";
+import Strings from '../../ExpandStores/LocalizedStrings';
 
 class Home extends Component {
   constructor(props) {
@@ -76,18 +77,18 @@ class Home extends Component {
       <ScrollView>
         <Categories navigation={navigation} categories={categories} />
         <NewArrivals
-          title={"New Arrivals"}
+          title={Strings.home.home.newArrivals}
           dataSource={newArrivals}
           onCardPress={this.onCardPress}
           navigation={navigation}/>
         <Featured
           onCardPress={this.onCardPress}
           featuredProducts={featured}
-          title={"Featured"}/>
+          title={Strings.home.home.featured}/>
         <BestSellers
           onCardPress={this.onCardPress}
           bestSellerProducts={bestSellers}
-          title={"Best Sellers"}
+          title={Strings.home.home.bestSellers}
           navigation={navigation}
           shouldLimit={true}
           limit={10}/>

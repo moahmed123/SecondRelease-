@@ -7,15 +7,16 @@ import FooterButton from "../FooterButton/FooterButton";
 import { updatePricesByQty } from "../../utils/updatePricesByQty";
 import styles from "./styles";
 
-// Get Action Function 
+// Get Action Function
 import * as actionCreatores from '../../action';
-//Connect Url 
+//Connect Url
 import ExpandStores from '../../ExpandStores/ExpandStores';
 import RoutesApi from '../../ExpandStores/RoutesApi';
 import deviceStorage from "../../utils/deviceStorage";
-import { withNavigation } from "react-navigation"; 
+import { withNavigation } from "react-navigation";
 const { height } = Dimensions.get("window");
 import LoadingBar from '../../components/LoadingBar/LoadingBar';
+import Strings from '../../ExpandStores/LocalizedStrings';
 
 class ShoppingBag extends Component {
     constructor(props) {
@@ -121,7 +122,7 @@ class ShoppingBag extends Component {
     );
     _showLoading = value =>{
         this.setState({loading: value})
-    } 
+    }
     ProductsCartData() {
         const { ProductsCart } = this.props;
 
@@ -135,17 +136,17 @@ class ShoppingBag extends Component {
                             <ActivityIndicator size="large" color="#eee" />
                         </View>
                         :null
-                    }                    
+                    }
                     <FlatList
                         showsVerticalScrollIndicator={false}
                         data={ProductsCart.products}
                         // keyExtractor={item => item.shoppingBagId.toString()}
-                        // extraData={this.props.shoppingBag}                        
+                        // extraData={this.props.shoppingBag}
                         renderItem={this.renderItem}
                         style={{ flex: 1 }} />
                     {
                         (lengthProdcuts != 0) ?
-                            <View style={[styles.footerContainer, (ProductsCart.totals.length > 5 )? {height: height * 0.3}: null]}>                            
+                            <View style={[styles.footerContainer, (ProductsCart.totals.length > 5 )? {height: height * 0.3}: null]}>
                                 {ProductsCart.totals.slice(1).map((Total, index) => {
                                     return (
                                         <View style={styles.totalContainer} key={index}>
@@ -160,7 +161,7 @@ class ShoppingBag extends Component {
                                     )
                                 })}
                                 <FooterButton
-                                    title={"CONTINUE"}
+                                    title={Strings.components.shoppingBag.continueTitle}
                                     onPress={this.onContinuePress}
                                     footerTitleStyle={styles.footerTitle}
                                     footerContainerStyle={styles.footerButtonContainer} />

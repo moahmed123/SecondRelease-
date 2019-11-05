@@ -4,20 +4,20 @@ import { Text, TextInput, View, ActivityIndicator, AsyncStorage } from "react-na
 import Button from "react-native-button";
 import AppStyles from "../../AppStyles";
 import styles from "./styles";
-
-// Get Fun Action 
+import Strings from '../../ExpandStores/LocalizedStrings';
+// Get Fun Action
 import { connect } from 'react-redux';
 import * as actionCreatores from './../../action';
 import ExpandStores from '../../ExpandStores/ExpandStores';
 import RoutesApi from '../../ExpandStores/RoutesApi';
 import deviceStorage from "../../utils/deviceStorage";
-import { withNavigation } from "react-navigation"; 
+import { withNavigation } from "react-navigation";
 import { StackActions, NavigationActions } from 'react-navigation';
 
 class Login extends React.Component {
     static propTypes = {
         navigation: PropTypes.object.isRequired
-    }; 
+    };
     constructor(props) {
         super(props);
         this.state = {
@@ -30,28 +30,28 @@ class Login extends React.Component {
     }
 
     onLogin = () => {
-        const { email, password } = this.state;        
-        // Create Url Store. 
+        const { email, password } = this.state;
+        // Create Url Store.
         const parametersurl = ExpandStores.UrlStore + RoutesApi.LoginUser;
         const tokon = deviceStorage.getUserData("Token"); //Get Token In deviceStorage.
         tokon.then((token) => {
             //validateInputLogin
             this.props.validateInputLogin(parametersurl, token , email , password);
             // this.setState({progress: true});
-        });                            
+        });
     };
     _MassageValidLogin(){
         const {LoginCustomerData} = this.props;
         if(LoginCustomerData){
             if(LoginCustomerData.customer === undefined){
                 return <Text style={styles.MassageError}> {LoginCustomerData} </Text>
-                
+
             }else{
                 if(LoginCustomerData.customer.email === undefined){
                     return <Text style={styles.MassageError}> data doesn't correct </Text>
                 }else{
-                    // const userlogin = true;                    
-                    // deviceStorage.setUserData(userlogin); 
+                    // const userlogin = true;
+                    // deviceStorage.setUserData(userlogin);
                     AsyncStorage.setItem('userlogin', 'login');
                     // Save Data Of User
                     const username  = LoginCustomerData.customer.firstname + ' ' + LoginCustomerData.customer.lastname;
@@ -60,20 +60,21 @@ class Login extends React.Component {
                     AsyncStorage.setItem('useremail', useremail);
 
                     // this.setState({loginProgress:true})
-                    setTimeout(()=>{                                            
-                       //restart App 
+                    setTimeout(()=>{
+                       //restart App
                        const resetAction = StackActions.reset({
                         index: 0,
                         actions: [NavigationActions.navigate({ routeName: 'Drawer' })],
                         });
+
                         this.props.navigation.dispatch(resetAction);                  
                         // this.setState({loginProgress:false})                        
-                    }, 50);                    
+                    }, 50);
                     return <Text style={styles.MassageSuccess}> Done Login </Text>
                     // Need Do: Save Data For User
-                }                
+                }
             }
-        }                
+        }
     }
 
     render() {
@@ -83,7 +84,8 @@ class Login extends React.Component {
                 <View style={styles.InputContainer}>
                     <TextInput
                         style={styles.body}
-                        placeholder='someone@example.com'
+
+                        placeholder={Strings.components.login.emailPlaceHolder}
                         onChangeText={text => this.setState({ email: text.replace(/ /g,"") })}
                         value={this.state.email}
                         underlineColorAndroid='transparent' />
@@ -92,7 +94,7 @@ class Login extends React.Component {
                     <TextInput
                         style={styles.body}
                         secureTextEntry={true}
-                        placeholder='Password'
+                        placeholder={Strings.components.login.passwordPlaceHolder}
                         onChangeText={text => this.setState({ password: text })}
                         value={this.state.password}
                         underlineColorAndroid='transparent' />
@@ -106,7 +108,7 @@ class Login extends React.Component {
                         <Button
                             containerStyle={styles.loginContainer}
                             style={styles.loginText}
-                            onPress={this.onLogin}                            
+                            onPress={this.onLogin}
                             >
                             Log in
                         </Button>

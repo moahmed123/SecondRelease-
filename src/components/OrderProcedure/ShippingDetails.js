@@ -4,18 +4,18 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import styles from "./styles";
 import AppStyles from "../../AppStyles";
-
+import Strings from '../../ExpandStores/LocalizedStrings';
 // const { width } = Dimensions.get("window");
 
 let upsGround = {
   name: "UPS Ground",
-  arrivalTime: "Arrives in 3-5 days",
-  price: "free"
+  arrivalTime: Strings.components.orderProcedure.shippingDetails.upsArrivalTime,
+  price: Strings.components.orderProcedure.shippingDetails.upsPrice
 };
 
 let fedEx = {
   name: "FedEx",
-  arrivalTime: "Arrives tomorrow",
+  arrivalTime: Strings.components.orderProcedure.shippingDetails.fedExArrivalTime,
   price: "$5.99"
 };
 
@@ -23,58 +23,58 @@ const shippingMethod = [upsGround, fedEx];
 
 let name = {
   id: 1,
-  placeholder: "Name",
+  placeholder: Strings.components.orderProcedure.shippingDetails.namePlaceHolder,
   isEditable: true,
   onSelectedValueChange: () => false
 };
 
 let email = {
   id: 2,
-  placeholder: "Email",
+  placeholder: Strings.components.orderProcedure.shippingDetails.emailPlaceHolder,
   isEditable: true,
   onSelectedValueChange: () => false
 };
 
 let address = {
   id: 3,
-  placeholder: "Adress",
+  placeholder: Strings.components.orderProcedure.shippingDetails.addressPlaceHolder,
   isEditable: true,
   onSelectedValueChange: () => false
 };
 
 let apt = {
   id: 4,
-  placeholder: "Apt.",
+  placeholder: Strings.components.orderProcedure.shippingDetails.aptPlaceHolder,
   isEditable: true,
   onSelectedValueChange: () => false
 };
 
 let zipCode = {
   id: 5,
-  placeholder: "Zip Code",
+  placeholder: Strings.components.orderProcedure.shippingDetails.zipCodePlaceHolder,
   isEditable: true,
   onSelectedValueChange: () => false
 };
 
 let city = {
   id: 6,
-  placeholder: "city",
+  placeholder: Strings.components.orderProcedure.shippingDetails.cityPlaceHolder,
   isEditable: true,
   onSelectedValueChange: () => false
 };
 
 let state = {
   id: 7,
-  placeholder: "state",
+  placeholder: Strings.components.orderProcedure.shippingDetails.statePlaceHolder,
   isEditable: true,
   onSelectedValueChange: () => false
 };
 
 let country = {
   id: 8,
-  placeholder: "country",
+  placeholder: Strings.components.orderProcedure.shippingDetails.countryPlaceHolder,
   isEditable: false,
-  value: "United States",
+  value: Strings.components.orderProcedure.shippingDetails.countryValue,
   onSelectedValueChange: () => false
 };
 

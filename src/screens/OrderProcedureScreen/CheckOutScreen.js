@@ -8,6 +8,7 @@ import CheckOutDetails from "../../components/OrderProcedure/CheckOutDetails";
 import FooterButton from "../../components/FooterButton/FooterButton";
 // import HeaderButton from "../../components/OrderProcedure/HeaderButton";
 import AppStyles from "../../AppStyles";
+import Strings from '../../ExpandStores/LocalizedStrings';
 
 class CheckoutScreen extends Component {
   static navigationOptions = () => ({
@@ -55,11 +56,11 @@ class CheckoutScreen extends Component {
 
   handleOrderPLaced = order => {
     Alert.alert(
-      "Success",
-      "Congratulations! Your order has been placed successfully.",
+      Strings.screens.orderProcedureScreen.checkOutScreen.alertTitle,
+      Strings.screens.orderProcedureScreen.checkOutScreen.alertMessage,
       [
         {
-          text: "OK",
+          text: Strings.screens.orderProcedureScreen.checkOutScreen.alertButtonText,
           onPress: () => {
             this.props.dispatch({
               type: "HANDLE_ORDER_PLACED",
@@ -87,11 +88,11 @@ class CheckoutScreen extends Component {
         <Header
           headerContainerStyle={{ borderBottomWidth: 0 }}
           headerStyle={{ fontFamily: AppStyles.fontFamily.boldFont }}
-          title={"Check out"}/>
+          title={Strings.screens.orderProcedureScreen.checkOutScreen.title}/>
         <CheckOutDetails
           totalPrice={this.props.totalPrice}
           shippingMethod={this.props.shippingMethod}
-          title={"Shipping Adress"}
+          title={Strings.screens.orderProcedureScreen.checkOutScreen.checkOutDetialstitle}
           cardNumbersEnding={this.props.cardNumbersEnding}
           isShippinngAddress={true}
           selectedPaymentMethod={this.props.selectedPaymentMethod}/>
@@ -102,7 +103,7 @@ class CheckoutScreen extends Component {
             }}
             footerTitleStyle={{ color: "white" }}
             onPress={this.onFooterPress}
-            title={"Place Order"}/>
+            title={Strings.screens.orderProcedureScreen.checkOutScreen.footeButton}/>
         </View>
       </View>
     );

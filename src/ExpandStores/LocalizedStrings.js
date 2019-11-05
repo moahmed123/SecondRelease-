@@ -1,4 +1,6 @@
 import LocalizedStrings from 'react-native-localization';
+import {Text} from "react-native";
+import React from "react";
 
 let strings = new LocalizedStrings({
     en:{
@@ -108,9 +110,134 @@ let strings = new LocalizedStrings({
         NoProduct: 'No Product For This Name',
         SearchForProducts:"Search For Products",
         WelcomeText: 'Shop & get updates on new products and sales with our mobile app.',
-        ShippingAddress: 'Shipping Address',
-        OurAddress: 'Our Address',
-      emailUs: 'Email Us',
+        components: {
+          home: {
+            bestSellers: {
+              browseAll: "Browse All",
+            },
+            home: {
+              newArrivals: 'New Arrivals',
+              featured: 'Featured',
+              bestSellers: 'Best Sellers',
+            }
+          },
+          contactUs: {
+            title : "Contact Us",
+            ShippingAddress: 'Shipping Address',
+            OurAddress: 'Our Address',
+            emailUs: 'Email Us',
+          },
+          editProfile: {
+            publicProfile: "PUBLIC PROFILE",
+            firstName: "First Name",
+            firstNamePlaceHolder: "Your first name",
+            lastName: "Last Name",
+            lastNamePlaceHolder: "Your last name",
+            privateDetials: "PRIVATE DETAILS",
+            emailLabel: "E-mail Address",
+            emailPlaceHolder: "Your email",
+            passwordLabel: "password",
+            passwordPlaceHolder: "Your password",
+          },
+          login: {
+            emailPlaceHolder: 'someone@example.com',
+            passwordPlaceHolder: 'Password',
+          },
+          orderCard: {
+            totalPrice: 'Total ${0}',
+            reorder: 'REORDER',
+          },
+          orderProcedure: {
+            checkOutDetials: {
+              paymentTitle: "Payment",
+              shippingTitle: "Shipping",
+              totalTitle: "Total",
+            },
+            paymentOptions: {
+              addNewCard: "Add New Card..."
+            },
+            shippingDetails: {
+              upsArrivalTime: "Arrives in 3-5 days",
+              upsPrice: "free",
+              fedExArrivalTime: "Arrives tomorrow",
+              namePlaceHolder: "Name",
+              emailPlaceHolder: "Email",
+              addressPlaceHolder: "Address",
+              aptPlaceHolder: "Apt.",
+              zipCodePlaceHolder: "Zip Code",
+              cityPlaceHolder: "city",
+              statePlaceHolder: "state",
+              countryPlaceHolder: "country",
+              countryValue: "United States"
+            }
+          },
+          profile: {
+            accountDetailsTitle: "Account Details",
+            accountDetialsNavigateScreenTitle: "Edit Profile",
+            wishListTitle: "WishList",
+            historyTitle: "Order History",
+            contactUsTitle: "Contact Us",
+            logoutTitle: "Logout",
+
+          },
+          shoppingBag: {
+            continueTitle: "CONTINUE"
+          },
+          shoppingBagCard: {
+            removeItemTitle: "Remove Item",
+            removeItemMessage: "Are you sure you want to remove this item from the cart?",
+            removeButtonText: "Remove",
+            cancelButtonText: "Cancel",
+          }
+        },
+        screens: {
+          editProfileScreen: {
+            title: "Edit Profile",
+          },
+          shoppingBagScreen: {
+            title: "Shopping Bag",
+          },
+          shopCategoryProductGridScreem: {
+            title: "Cartegory Grid",
+          },
+          settingsScreen: {
+            title: "Settings",
+          },
+          orderProcedureScreen: {
+            addACardScreen: {
+              title: "Add a Card",
+              cardInputTitle: "Card",
+              cardDatePlaceholder: "MM/YY",
+              alert: "Please fill in your card details",
+              headerBackButton: "Cancel",
+              headerRightButton: "Done",
+            },
+            checkOutScreen: {
+              alertTitle: "Success",
+              alertMessage: "Congratulations! Your order has been placed successfully.",
+              alertButtonText: "OK",
+              title: "Check out",
+              checkOutDetialstitle: "Shipping Address",
+              footeButton: "Place Order",
+            },
+            paymentMethodScreen: {
+              headerBackButton: "Cancel",
+              headerRightButton: "Next",
+              title: "Payment Method",
+            },
+            shippingAddressScreen: {
+              headerBackButton: "Cancel",
+              headerRightButton: "Next",
+              title: "Shipping",
+              detailsTitle: "Shipping Address",
+            },
+            shippingMethodScreen: {
+              headerRightButton: "Done",
+              title: "Shipping",
+              detailsTitle: "Shipping Method",
+            },
+          }
+        }
     },
     ar: {
         connectionError:"لا يوجد اتصال بالانترنت",
@@ -216,6 +343,134 @@ let strings = new LocalizedStrings({
         ShippingAddress: 'عنوان التوصيل',
         OurAddress: 'العنوان',
       emailUs: 'راسلنا',
+      components: {
+        home: {
+          bestSellers: {
+            browseAll: "تصفح الكل",
+          },
+          home: {
+            newArrivals: 'اتى حديثا',
+            featured: 'المتميز',
+            bestSellers: 'الاكثر مبيعا',
+          }
+        },
+        contactUs: {
+          title : "تواصل معانا",
+          ShippingAddress: 'عنوان الشحن',
+          OurAddress: 'عنواننا',
+          emailUs: 'راسلنا',
+        },
+        editProfile: {
+          publicProfile: "الحساب العام",
+          firstName: "الاسم الاول",
+          firstNamePlaceHolder: "اسمك الاول",
+          lastName: "الاسم الاخير",
+          lastNamePlaceHolder: "اسم عائلتك",
+          privateDetials: "تفاصيل خاصة",
+          emailLabel: "البريد الالكتروني",
+          emailPlaceHolder: "بريدك الالكتروني",
+          passwordLabel: "كلمة المرور",
+          passwordPlaceHolder: "كلمة المرور الخاصة بك",
+        },
+        login: {
+          emailPlaceHolder: 'someone@example.com',
+          passwordPlaceHolder: 'Password',
+        },
+        orderCard: {
+          totalPrice: 'المجموع ${0}',
+          reorder: 'اعادة الطلب',
+        },
+        orderProcedure: {
+          checkOutDetials: {
+            paymentTitle: "الدفع",
+            shippingTitle: "الشحن",
+            totalTitle: "المجموع",
+          },
+          paymentOptions: {
+            addNewCard: "اضافة كارت جديد"
+          },
+          shippingDetails: {
+            upsArrivalTime: "يصل في خلال 3 الى 5 ايام",
+            upsPrice: "مجانا",
+            fedExArrivalTime: "يصل غدا",
+            namePlaceHolder: "الاسم",
+            emailPlaceHolder: "البريد الالكتروني",
+            addressPlaceHolder: "العنوان",
+            aptPlaceHolder: "الشقة",
+            zipCodePlaceHolder: "رمز البريد",
+            cityPlaceHolder: "المدينة",
+            statePlaceHolder: "المحافظة",
+            countryPlaceHolder: "الدولة",
+            countryValue: "الولايات المتحدة"
+          }
+        },
+        profile: {
+          accountDetailsTitle: "تفاصيل الحساب",
+          accountDetialsNavigateScreenTitle: "تعديل الملف الشخصي",
+          wishListTitle: "قائمة الرغبات",
+          historyTitle: "تاريخ الطلبات",
+          contactUsTitle: "تواصل معانا",
+          logoutTitle: "تسجيل الخروج",
+
+        },
+        shoppingBag: {
+          continueTitle: "اكمل"
+        },
+        shoppingBagCard: {
+          removeItemTitle: "ازالة منتج",
+          removeItemMessage: "هل انت متاكد من ازالة هذا المنتج؟",
+          removeButtonText: "ازالة",
+          cancelButtonText: "الغاء",
+        }
+      },
+      screens: {
+        editProfileScreen: {
+          title: "تعديل الملف الشخصي",
+        },
+        shoppingBagScreen: {
+          title: "سلة التسوق",
+        },
+        shopCategoryProductGridScreem: {
+          title: "شبككة الفئات",
+        },
+        settingsScreen: {
+          title: "الاعدادات",
+        },
+        orderProcedureScreen: {
+          addACardScreen: {
+            title: "اضافة كارت",
+            cardInputTitle: "الكارت",
+            cardDatePlaceholder: "شش/سس",
+            alert: "يرجى ملئ تفاصيل بطاقتك",
+            headerBackButton: "الفاء",
+            headerRightButton: "انتهاء",
+          },
+          checkOutScreen: {
+            alertTitle: "نجاح",
+            alertMessage: "تهانينا! تم تقديم طلبك بنجاح.",
+            alertButtonText: "حسنا",
+            title: "الدفع",
+            checkOutDetialstitle: "عنوان التوصيل",
+            footeButton: "اتمام الطلب",
+          },
+          paymentMethodScreen: {
+            headerBackButton: "الغاء",
+            headerRightButton: "التالي",
+            title: "طريقة الدفع",
+          },
+          shippingAddressScreen: {
+            headerBackButton: "الغاء",
+            headerRightButton: "التالي",
+            title: "التوصيل",
+            detailsTitle: "عنوان التوصيل",
+          },
+          shippingMethodScreen: {
+            headerRightButton: "انتهاء",
+            title: "التوصيل",
+            detailsTitle: "طريقة التوصيل",
+          },
+        }
+      }
     }
 });
 

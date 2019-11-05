@@ -7,6 +7,7 @@ import ProcedureImage from "../../components/OrderProcedure/ProcedureImage";
 import ShippingDetails from "../../components/OrderProcedure/ShippingDetails";
 import HeaderButton from "../../components/OrderProcedure/HeaderButton";
 import AppStyles from "../../AppStyles";
+import Strings from '../../ExpandStores/LocalizedStrings';
 
 // import styles from "./styles";
 
@@ -25,7 +26,7 @@ export default class ShippingAddressScreen extends Component {
           navigation.setParams();
         }}
         buttonContainerStyle={{ marginLeft: 10 }}
-        title={"Cancel"}/>
+        title={Strings.screens.orderProcedureScreen.shippingAddressScreen.headerBackButton}/>
     ),
     headerRight: (
       <HeaderButton
@@ -33,7 +34,7 @@ export default class ShippingAddressScreen extends Component {
           navigation.replace("ShippingMethod");
         }}
         buttonContainerStyle={{ marginRight: 10 }}
-        title={"Next"}/>
+        title={Strings.screens.orderProcedureScreen.shippingAddressScreen.headerRightButton}/>
     )
   });
 
@@ -47,9 +48,9 @@ export default class ShippingAddressScreen extends Component {
   render() {
     return (
       <KeyboardAwareScrollView>
-        <Header title={"Shipping"} />
+        <Header title={Strings.screens.orderProcedureScreen.shippingAddressScreen.title} />
         <ProcedureImage source={AppStyles.imageSet.box} />
-        <ShippingDetails title={"Shipping Adress"} isShippinngAddress={true} />
+        <ShippingDetails title={Strings.screens.orderProcedureScreen.shippingAddressScreen.detailsTitle} isShippinngAddress={true} />
       </KeyboardAwareScrollView>
     );
   }

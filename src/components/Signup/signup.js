@@ -5,14 +5,15 @@ import Button from "react-native-button";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles";
 
-// Get Fun Action 
+// Get Fun Action
 import { connect } from 'react-redux';
 import * as actionCreatores from './../../action';
 import ExpandStores from '../../ExpandStores/ExpandStores';
 import RoutesApi from '../../ExpandStores/RoutesApi';
 import deviceStorage from "../../utils/deviceStorage";
 //To move To Other Redirect
-import { withNavigation } from "react-navigation"; 
+import { withNavigation } from "react-navigation";
+import Strings from '../../ExpandStores/LocalizedStrings';
 
 class Signup extends React.Component {
     static propTypes = {
@@ -35,15 +36,15 @@ class Signup extends React.Component {
 
     }
 
-    onRegister = () => {        
+    onRegister = () => {
         const { firstname, lastname, phone, email, password } = this.state;
-        // Create Url Store. 
+        // Create Url Store.
         const parametersurl = ExpandStores.UrlStore + RoutesApi.RegisterUser;
         const tokon = deviceStorage.getUserData("Token"); //Get Token In deviceStorage.
         tokon.then((token) => {
             this.props.validateInput(parametersurl, token, firstname, lastname, email, password);
             this.setState({progress: true});
-        });            
+        });
         setTimeout(()=>{
             this.setState({progress: false});
         }, 2000)
@@ -55,7 +56,7 @@ class Signup extends React.Component {
 
             if(RegisterData.customer === undefined){
                 return <Text style={styles.MassageError}> {RegisterData} </Text>
-                
+
             }else{
                 if(RegisterData.customer.email === undefined){
                     return <Text style={styles.MassageError}> data doesn't correct </Text>
@@ -64,13 +65,13 @@ class Signup extends React.Component {
                         this.props.navigation.navigate("Login");
                     }, 500);
                     return <Text style={styles.MassageSuccess}> Done Register </Text>
-                    
-                }                
-            }          
+
+                }
+            }
         }
     }
 
-    render() {        
+    render() {
         return (
             <View style={styles.container}>
                 <Text style={[styles.title, styles.leftTitle]}>Create new account</Text>
@@ -78,7 +79,7 @@ class Signup extends React.Component {
                     <View style={styles.InputContainer}>
                         <TextInput
                             style={styles.body}
-                            placeholder='First Name'
+                            placeholder={Strings.components.editProfile.firstNamePlaceHolder}
                             onChangeText={text => this.setState({ firstname: text })}
                             value={this.state.firstname}
                             underlineColorAndroid='transparent' />
@@ -86,7 +87,7 @@ class Signup extends React.Component {
                     <View style={styles.InputContainer}>
                         <TextInput
                             style={styles.body}
-                            placeholder='last Name'
+                            placeholder={Strings.components.editProfile.lastNamePlaceHolder}
                             onChangeText={text => this.setState({ lastname: text })}
                             value={this.state.lastname}
                             underlineColorAndroid='transparent' />
@@ -102,7 +103,8 @@ class Signup extends React.Component {
                     <View style={styles.InputContainer}>
                         <TextInput
                             style={styles.body}
-                            placeholder='E-mail Address'
+
+                            placeholder={Strings.components.editProfile.emailPlaceHolder}
                             onChangeText={text => this.setState({ email: text.replace(/ /g,"") })}
                             value={this.state.email}
                             underlineColorAndroid='transparent' />
@@ -125,13 +127,13 @@ class Signup extends React.Component {
                             <Button
                                 containerStyle={styles.facebookContainer}
                                 style={styles.facebookText}
-                                onPress={this.onRegister}                                
+                                onPress={this.onRegister}
                                 >
                                 Sign Up
                             </Button>
                         )}
-                        {this._MassageValidRegister()}                                                                         
-                </KeyboardAwareScrollView>                
+                        {this._MassageValidRegister()}
+                </KeyboardAwareScrollView>
             </View>
         );
     }

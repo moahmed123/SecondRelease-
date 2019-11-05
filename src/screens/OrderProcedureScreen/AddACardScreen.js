@@ -8,6 +8,7 @@ import ProcedureImage from "../../components/OrderProcedure/ProcedureImage";
 import CardInputFields from "../../components/OrderProcedure/CardInputFields";
 import HeaderButton from "../../components/OrderProcedure/HeaderButton";
 import AppStyles from "../../AppStyles";
+import Strings from '../../ExpandStores/LocalizedStrings';
 
 // import styles from "./styles";
 
@@ -23,13 +24,13 @@ class AddACardScreen extends Component {
             navigation.goBack();
           }}
           buttonContainerStyle={{ marginLeft: 10 }}
-          title={"Cancel"}/>
+          title={Strings.screens.orderProcedureScreen.addACardScreen.headerBackButton}/>
       ),
       headerRight: (
         <HeaderButton
           onPress={params.onDonePress}
           buttonContainerStyle={{ marginRight: 10 }}
-          title={"Done"}/>
+          title={Strings.screens.orderProcedureScreen.addACardScreen.headerRightButton}/>
       ),
       headerStyle: {
         borderBottomWidth: 0,
@@ -61,9 +62,9 @@ class AddACardScreen extends Component {
     const cardNumber = this.state.cardNumberValue.split(" ");
     const previousScreen = this.props.navigation.getParam("previousScreen");
     const defaultPaymentOption = {
-      title: `Visa Ending in ${cardNumber[cardNumber.length - 1]}`,
+      title: `Visa Ending in ${cardNumber[cardNumber.length - 1]}`, // translation
       cardEndingNumber: `${cardNumber[cardNumber.length - 1]}`,
-      key: `card${cardNumber[cardNumber.length - 1]}`,
+      key: `card${cardNumber[cardNumber.length - 1]}`, // translation
       iconSource: AppStyles.iconSet.visaPay
     };
 
@@ -81,7 +82,7 @@ class AddACardScreen extends Component {
       }
     }
  else {
-      alert("Please fill in your card details");
+      alert(Strings.screens.orderProcedureScreen.addACardScreen.alert);
     }
   };
 
@@ -122,15 +123,15 @@ class AddACardScreen extends Component {
 
     return (
       <KeyboardAwareScrollView extraScrollHeight={30}>
-        <Header title={"Add a Card"} />
+        <Header title={Strings.screens.orderProcedureScreen.addACardScreen.title} />
         <ProcedureImage source={AppStyles.imageSet.creditCard} />
         <CardInputFields
-          title={"Card"}
+          title={Strings.screens.orderProcedureScreen.addACardScreen.cardInputTitle}
           iconSource={AppStyles.iconSet.creditCardIcon}
           cardNumberPlaceholder={"4242 4242 424 4242 4242"}
           onCardNumberChange={this.onCardNumberChange}
           cardNumberValue={cardNumberValue}
-          cardDatePlaceholder={"MM/YY"}
+          cardDatePlaceholder={Strings.screens.orderProcedureScreen.addACardScreen.cardDatePlaceholder}
           cardDateValue={cardDateValue}
           onCardDateChange={this.onCardDateChange}
           cvcPlaceholder={"CVC"}
