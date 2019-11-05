@@ -44,9 +44,10 @@ let strings = new LocalizedStrings({
         forgetPasswordText:"Forget Password",
         skipToHomeScreen:"Go To Home Screen",
         registerNewAccount:"Create New Account",
-        Signup: 'Signup',
+        Signup: 'Sign Up',
+        SignIn: 'Sign In',
 
-
+      
 
 
         // loading:"Loading",
@@ -268,6 +269,7 @@ let strings = new LocalizedStrings({
 
         LoginButton:"تسجيل الدخول",
         Signup: 'تسجيل',
+        SignIn: 'تسجيل الدخول',
 
         firstNamePlaceHolder:"الأسم الاول",
         lastNamePlaceHolder:"الأسم الاخير",
@@ -374,7 +376,7 @@ let strings = new LocalizedStrings({
         },
         login: {
           emailPlaceHolder: 'someone@example.com',
-          passwordPlaceHolder: 'Password',
+          passwordPlaceHolder: "كلمة المرور",
         },
         orderCard: {
           totalPrice: 'المجموع ${0}',
@@ -414,7 +416,7 @@ let strings = new LocalizedStrings({
 
         },
         shoppingBag: {
-          continueTitle: "اكمل"
+          continueTitle: " اكمل التسوق"
         },
         shoppingBagCard: {
           removeItemTitle: "ازالة منتج",

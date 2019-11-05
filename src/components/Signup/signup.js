@@ -74,7 +74,7 @@ class Signup extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={[styles.title, styles.leftTitle]}>Create new account</Text>
+                <Text style={[styles.title, styles.leftTitle]}>{Strings.registerNewAccount}</Text>
                 <KeyboardAwareScrollView style={{ flex: 1, width: "100%" }}>
                     <View style={styles.InputContainer}>
                         <TextInput
@@ -112,7 +112,7 @@ class Signup extends React.Component {
                     <View style={[styles.InputContainer, { marginBottom: 50 }]}>
                         <TextInput
                             style={styles.body}
-                            placeholder='Password'
+                            placeholder={Strings.PasswordPlaceHolder}
                             secureTextEntry={true}
                             onChangeText={text => this.setState({ password: text })}
                             value={this.state.password}
@@ -129,7 +129,7 @@ class Signup extends React.Component {
                                 style={styles.facebookText}
                                 onPress={this.onRegister}
                                 >
-                                Sign Up
+                                {Strings.Signup}
                             </Button>
                         )}
                         {this._MassageValidRegister()}

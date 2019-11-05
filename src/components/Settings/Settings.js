@@ -22,6 +22,12 @@ class TestWebView extends Component {
         var renderTime = Date.now();
         return (
             <View style={{ flex: 1, height: Dimensions.get("window").height }}>
+                {
+                    (this.state.isLoadedSpinner)?                        
+                        <ActivityIndicator color = "#ddd"/>                        
+                    :
+                        null
+                }
                 <WebView
                     source={{ uri: UrlCheckout }}
                     style={{ flex: 1 }}

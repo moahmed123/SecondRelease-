@@ -114,6 +114,10 @@ const getDrawerScreenTitle = routeKey => {
       return strings.Profile;
     case "ShoppingBag":
       return strings.shoppingCart;
+    case "Login":
+      return strings.LoginButton;
+    case "Signup":
+      return strings.Signup;      
     default:
       return strings.home;
   }

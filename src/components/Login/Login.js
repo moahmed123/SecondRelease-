@@ -80,7 +80,7 @@ class Login extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={[styles.title, styles.leftTitle]}>Sign In</Text>
+                <Text style={[styles.title, styles.leftTitle]}>{Strings.SignIn}</Text>
                 <View style={styles.InputContainer}>
                     <TextInput
                         style={styles.body}
@@ -110,7 +110,7 @@ class Login extends React.Component {
                             style={styles.loginText}
                             onPress={this.onLogin}
                             >
-                            Log in
+                            {Strings.LoginButton}
                         </Button>
                     )}
                     {this._MassageValidLogin()}

@@ -524,7 +524,23 @@ class ProductDetailModal extends React.Component {
                 + ","  
                 this.state.valselectedfour.replace(new RegExp("[{}]", "g"), "")
                 + "}";   
-                this.props.addToCart(this.props.product.product_id , this.state.quantity , optionValue);
+
+                if(optionValue){
+                    optionValue = JSON.parse(optionValue)
+                }                
+                token.then((token)=>{
+                    this.props.AddToCart(parametersurl, token, productId, this.state.quantity, optionValue);
+                    this.setState({
+                        DoneCart: true
+                    });
+                    // Refresh Data Products Cart
+                    this.props.CartProducts(urlGetCart, token).then(()=>{
+                        setTimeout(() => {
+                            this.setState({ DoneCart: false });
+                        }, 500);
+                        this.props.navigation.navigate('ShoppingBag');
+                    })
+                })
 
             }else if(this.state.valselectedThree){
                 const optionValue = 
@@ -536,7 +552,23 @@ class ProductDetailModal extends React.Component {
                 this.state.valselectedThree.replace(new RegExp("[{}]", "g"), "")
                 + "}"; 
 
-                this.props.addToCart(this.props.product.product_id , this.state.quantity , optionValue);
+                if(optionValue){
+                    optionValue = JSON.parse(optionValue)
+                }
+                //this.props.addToCart(this.props.product.product_id , this.state.quantity , optionValue);
+                token.then((token)=>{
+                    this.props.AddToCart(parametersurl, token, productId, this.state.quantity, optionValue);
+                    this.setState({
+                        DoneCart: true
+                    });
+                    // Refresh Data Products Cart
+                    this.props.CartProducts(urlGetCart, token).then(()=>{
+                        setTimeout(() => {
+                            this.setState({ DoneCart: false });
+                        }, 500);
+                        this.props.navigation.navigate('ShoppingBag');
+                    })
+                })
 
             }else if(this.state.valselectedTwo){                
                 var optionValue = 
@@ -558,7 +590,8 @@ class ProductDetailModal extends React.Component {
                     this.props.CartProducts(urlGetCart, token).then(()=>{
                         setTimeout(() => {
                             this.setState({ DoneCart: false });
-                        }, 2000);
+                        }, 500);
+                        this.props.navigation.navigate('ShoppingBag');
                     })
                 })
 
@@ -578,8 +611,8 @@ class ProductDetailModal extends React.Component {
                                 this.setState({ DoneCart: false });
                                 onCancelPress();
                             }, 500);
-                        })
-                        this.props.navigation.navigate('ShoppingBag');                        
+                            this.props.navigation.navigate('ShoppingBag');
+                        })                                                
                     })                
                 }
             }                      

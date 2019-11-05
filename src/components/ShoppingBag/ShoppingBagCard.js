@@ -48,7 +48,7 @@ class ShoppingBagCard extends Component {
                     prevState.itemQty === 0 ? prevState.itemQty : prevState.itemQty - 1
             }),
             () => {
-                this.setObjForProps();
+                // this.setObjForProps();
                 this.state.itemQty === 0 && this.onItemEqualsZero();
             }
         );
