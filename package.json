@@ -17,7 +17,7 @@
     "axios": "^0.19.0",
     "lodash.isequal": "^4.5.0",
     "react": "16.8.3",
-    "react-native": "0.59.9",
+    "react-native": "0.62.3",
     "react-native-button": "^2.4.0",
     "react-native-extra-dimensions-android": "^1.2.5",
     "react-native-firebase": "^5.5.5",
